@@ -6,69 +6,44 @@
 <title>QVEMA Amplify — Votre avis sur les Modules 0 & 1</title>
 <style>
   :root{
-    --bleu:#1F3A5F;
-    --bleu-clair:#2E5685;
-    --dore:#C8A24B;
-    --dore-clair:#E0C480;
-    --gris:#5B6470;
-    --gris-clair:#8A93A0;
-    --bg:#F4F1EA;
-    --carte:#FFFFFF;
-    --bordure:#E3E6EB;
-    --ok:#2E7D5B;
+    --bleu:#1F3A5F;--bleu-clair:#2E5685;--dore:#C8A24B;--dore-clair:#E0C480;
+    --gris:#5B6470;--gris-clair:#8A93A0;--bg:#F4F1EA;--carte:#FFFFFF;--bordure:#E3E6EB;--ok:#2E7D5B;
   }
   *{box-sizing:border-box;margin:0;padding:0}
-  body{
-    font-family:'Inter','Segoe UI',-apple-system,BlinkMacSystemFont,sans-serif;
-    background:linear-gradient(160deg,#1F3A5F 0%,#14253c 100%);
-    min-height:100vh;color:var(--bleu);
-    padding:24px 16px;line-height:1.5;
-  }
+  body{font-family:'Inter','Segoe UI',-apple-system,BlinkMacSystemFont,sans-serif;background:linear-gradient(160deg,#1F3A5F 0%,#14253c 100%);min-height:100vh;color:var(--bleu);padding:24px 16px;line-height:1.5}
   .wrap{max-width:680px;margin:0 auto}
   .brand{text-align:center;margin-bottom:18px}
   .brand .kicker{color:var(--dore);font-weight:700;letter-spacing:.18em;font-size:.72rem;text-transform:uppercase}
   .brand h1{color:#fff;font-size:1.5rem;margin-top:6px;font-weight:800}
   .brand p{color:#cdd6e3;font-size:.92rem;margin-top:6px}
-
-  .card{
-    background:var(--carte);border-radius:18px;padding:30px 26px;
-    box-shadow:0 18px 50px rgba(0,0,0,.28);
-  }
+  .card{background:var(--carte);border-radius:18px;padding:30px 26px;box-shadow:0 18px 50px rgba(0,0,0,.28)}
   .progress{display:flex;align-items:center;gap:10px;margin-bottom:22px}
   .pbar{flex:1;height:7px;background:var(--bordure);border-radius:99px;overflow:hidden}
   .pbar span{display:block;height:100%;width:50%;background:linear-gradient(90deg,var(--dore),var(--dore-clair));border-radius:99px;transition:width .35s ease}
   .pstep{font-size:.78rem;color:var(--gris);font-weight:600;white-space:nowrap}
-
   .step-head{margin-bottom:20px}
   .step-head h2{font-size:1.22rem;color:var(--bleu)}
   .step-head .sub{color:var(--gris);font-size:.9rem;margin-top:6px}
-
   .field{margin-bottom:18px}
   label.q{display:block;font-weight:650;font-size:.98rem;margin-bottom:8px;color:var(--bleu)}
   label.q .req{color:#c0392b}
   .hint{font-size:.8rem;color:var(--gris-clair);font-weight:400;margin-top:2px;display:block}
-  input[type=text],input[type=date],select,textarea{
-    width:100%;padding:12px 14px;border:1.5px solid var(--bordure);border-radius:11px;
-    font-size:1rem;font-family:inherit;color:var(--bleu);background:#fff;transition:border .2s,box-shadow .2s;
-  }
+  input[type=text],input[type=date],select,textarea{width:100%;padding:12px 14px;border:1.5px solid var(--bordure);border-radius:11px;font-size:1rem;font-family:inherit;color:var(--bleu);background:#fff;transition:border .2s,box-shadow .2s}
   input:focus,select:focus,textarea:focus{outline:none;border-color:var(--bleu-clair);box-shadow:0 0 0 3px rgba(46,86,133,.13)}
   textarea{resize:vertical;min-height:78px}
   select{appearance:none;background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='%235B6470' stroke-width='2.5'><path d='M6 9l6 6 6-6'/></svg>");background-repeat:no-repeat;background-position:right 14px center;padding-right:38px}
-
   .scale{display:flex;gap:8px;flex-wrap:wrap}
   .scale label{flex:1;min-width:54px;text-align:center;cursor:pointer}
   .scale input{position:absolute;opacity:0;pointer-events:none}
   .scale .dot{display:flex;align-items:center;justify-content:center;height:46px;border:1.5px solid var(--bordure);border-radius:11px;font-weight:700;color:var(--gris);transition:all .15s}
   .scale input:checked + .dot{background:var(--bleu);border-color:var(--bleu);color:#fff;transform:translateY(-2px)}
   .scale-legend{display:flex;justify-content:space-between;font-size:.74rem;color:var(--gris-clair);margin-top:6px}
-
   .opts{display:flex;flex-direction:column;gap:9px}
   .opt{display:flex;align-items:flex-start;gap:11px;padding:11px 14px;border:1.5px solid var(--bordure);border-radius:11px;cursor:pointer;transition:all .15s}
   .opt:hover{border-color:var(--dore)}
   .opt input{margin-top:2px;width:18px;height:18px;accent-color:var(--bleu);flex-shrink:0}
   .opt.sel{border-color:var(--bleu);background:#F5F8FC}
   .opt span{font-size:.95rem}
-
   .rating-row{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:10px 0;border-bottom:1px solid var(--bordure)}
   .rating-row:last-child{border-bottom:none}
   .rating-row .name{font-size:.92rem;font-weight:550;flex:1}
@@ -77,11 +52,9 @@
   .mini input{position:absolute;opacity:0;pointer-events:none}
   .mini .d{display:flex;align-items:center;justify-content:center;width:34px;height:34px;border:1.4px solid var(--bordure);border-radius:8px;font-size:.85rem;font-weight:700;color:var(--gris);transition:all .15s}
   .mini input:checked + .d{background:var(--dore);border-color:var(--dore);color:#3a2e10}
-
   .err{color:#c0392b;font-size:.82rem;margin-top:6px;display:none}
   .field.invalid input,.field.invalid select,.field.invalid textarea{border-color:#c0392b}
   .field.invalid .err{display:block}
-
   .nav{display:flex;gap:12px;margin-top:26px}
   button{font-family:inherit;font-size:1rem;font-weight:700;border:none;border-radius:12px;padding:14px 22px;cursor:pointer;transition:transform .12s,box-shadow .2s,opacity .2s}
   button:active{transform:translateY(1px)}
@@ -90,17 +63,13 @@
   .btn-ghost{background:#fff;color:var(--bleu);border:1.6px solid var(--bordure)}
   .btn-ghost:hover{border-color:var(--bleu-clair)}
   button[disabled]{opacity:.6;cursor:not-allowed}
-
   .hidden{display:none}
   .foot{text-align:center;color:#9fb0c6;font-size:.78rem;margin-top:20px}
-
-  /* Merci */
   .thanks{text-align:center;padding:18px 6px}
   .thanks .check{width:74px;height:74px;border-radius:50%;background:linear-gradient(135deg,var(--ok),#3da576);display:flex;align-items:center;justify-content:center;margin:0 auto 18px}
   .thanks .check svg{width:38px;height:38px;stroke:#fff;stroke-width:3;fill:none}
   .thanks h2{color:var(--bleu);font-size:1.5rem}
   .thanks p{color:var(--gris);margin-top:10px;font-size:.98rem}
-
   .section-label{font-size:.72rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--dore);margin:26px 0 10px}
   .section-label:first-child{margin-top:0}
 </style>
@@ -114,14 +83,13 @@
   </div>
 
   <div class="card">
-    <!-- Progress -->
     <div class="progress" id="progress">
       <div class="pbar"><span id="pbar-fill"></span></div>
       <div class="pstep" id="pstep">Étape 1 / 2</div>
     </div>
 
     <form id="form" novalidate>
-      <!-- ============ ÉTAPE 1 ============ -->
+      <!-- ÉTAPE 1 -->
       <div class="step" id="step1">
         <div class="step-head">
           <h2>Faisons connaissance</h2>
@@ -144,6 +112,16 @@
           <label class="q" for="naissance">Date de naissance <span class="req">*</span></label>
           <input type="date" id="naissance" name="naissance" />
           <div class="err">Merci d’indiquer votre date de naissance.</div>
+        </div>
+
+        <div class="field" data-required>
+          <label class="q">Sexe <span class="req">*</span></label>
+          <div class="opts" data-single="sexe">
+            <label class="opt"><input type="radio" name="sexe" value="Homme"><span>Homme</span></label>
+            <label class="opt"><input type="radio" name="sexe" value="Femme"><span>Femme</span></label>
+            <label class="opt"><input type="radio" name="sexe" value="Préfère ne pas me prononcer"><span>Préfère ne pas me prononcer</span></label>
+          </div>
+          <div class="err">Merci de choisir une réponse.</div>
         </div>
 
         <div class="field" data-required>
@@ -257,12 +235,43 @@
           <div class="err">Merci de sélectionner votre département.</div>
         </div>
 
+        <div class="field" data-required>
+          <label class="q" for="typeprojet">Quel type de projet entrepreneurial menez-vous ? <span class="req">*</span>
+            <span class="hint">Choisissez ce qui s’en rapproche le plus.</span>
+          </label>
+          <select id="typeprojet" name="typeprojet">
+            <option value="" selected disabled>— Sélectionnez votre type de projet —</option>
+            <option value="SaaS / Logiciel">SaaS / Logiciel</option>
+            <option value="E-commerce">E-commerce</option>
+            <option value="Intelligence artificielle (IA)">Intelligence artificielle (IA)</option>
+            <option value="Cybersécurité">Cybersécurité</option>
+            <option value="Application mobile">Application mobile</option>
+            <option value="Marketplace / Plateforme">Marketplace / Plateforme</option>
+            <option value="Activité libérale / Indépendant">Activité libérale / Indépendant</option>
+            <option value="Service / Conseil">Service / Conseil</option>
+            <option value="Commerce physique / Restauration">Commerce physique / Restauration</option>
+            <option value="Artisanat / Production">Artisanat / Production</option>
+            <option value="Santé / Bien-être">Santé / Bien-être</option>
+            <option value="Éducation / Formation">Éducation / Formation</option>
+            <option value="Food / Agroalimentaire">Food / Agroalimentaire</option>
+            <option value="Je n'ai pas encore d'idée précise">Je n’ai pas encore d’idée précise</option>
+            <option value="Autre">Autre</option>
+          </select>
+          <div class="err">Merci de sélectionner une réponse.</div>
+        </div>
+
+        <div class="field hidden" id="precisionField">
+          <label class="q" for="typeprojet_precision">Précisez votre projet</label>
+          <textarea id="typeprojet_precision" name="typeprojet_precision" placeholder="Décrivez en quelques mots ce que vous faites…"></textarea>
+          <div class="err">Merci de préciser votre projet.</div>
+        </div>
+
         <div class="nav">
           <button type="button" class="btn-primary" id="toStep2">Continuer →</button>
         </div>
       </div>
 
-      <!-- ============ ÉTAPE 2 ============ -->
+      <!-- ÉTAPE 2 -->
       <div class="step hidden" id="step2">
         <div class="step-head">
           <h2>Votre expérience jusqu’ici</h2>
@@ -271,7 +280,6 @@
 
         <div class="section-label">Partie 1 — Satisfaction</div>
 
-        <!-- Q1 satisfaction globale -->
         <div class="field" data-required>
           <label class="q">1. Globalement, à quel point êtes-vous satisfait·e des Modules 0 et 1 ? <span class="req">*</span></label>
           <div class="scale" id="scale-q1"></div>
@@ -279,7 +287,6 @@
           <div class="err">Merci de choisir une note.</div>
         </div>
 
-        <!-- Q2 notation par format -->
         <div class="field">
           <label class="q">2. Comment évaluez-vous chacun des formats proposés ?
             <span class="hint">Notez de 1 à 5. Laissez vide si vous n’y avez pas encore touché.</span>
@@ -287,7 +294,6 @@
           <div id="formats"></div>
         </div>
 
-        <!-- Q3 pédagogie -->
         <div class="field" data-required>
           <label class="q">3. La pédagogie (clarté, rythme, difficulté) vous a-t-elle paru adaptée ? <span class="req">*</span></label>
           <div class="opts" data-single="pedagogie">
@@ -299,7 +305,6 @@
           <div class="err">Merci de choisir une réponse.</div>
         </div>
 
-        <!-- Q4 le plus apprécié -->
         <div class="field">
           <label class="q">4. Qu’avez-vous le plus apprécié ou trouvé le plus utile jusqu’ici ?
             <span class="hint">Un cours, un exercice, un déclic, un moment du live…</span>
@@ -307,7 +312,6 @@
           <textarea name="apprecie" placeholder="Votre réponse…"></textarea>
         </div>
 
-        <!-- Q5 frustrations -->
         <div class="field">
           <label class="q">5. Qu’est-ce qui vous a freiné·e, frustré·e ou laissé·e sur votre faim ?
             <span class="hint">Soyez direct·e, c’est exactement ce dont on a besoin.</span>
@@ -317,7 +321,6 @@
 
         <div class="section-label">Partie 2 — Vos besoins pour la suite</div>
 
-        <!-- Q6 attentes -->
         <div class="field">
           <label class="q">6. Qu’espérez-vous concrètement retirer des prochains modules ?
             <span class="hint">Une compétence, un livrable, une décision à prendre, un blocage à lever…</span>
@@ -325,7 +328,6 @@
           <textarea name="attentes" placeholder="Votre réponse…"></textarea>
         </div>
 
-        <!-- Q7 sujets -->
         <div class="field">
           <label class="q">7. Sur quels sujets aimeriez-vous qu’on aille plus loin ou plus vite ?
             <span class="hint">Plusieurs choix possibles.</span>
@@ -341,7 +343,6 @@
           </div>
         </div>
 
-        <!-- Q8 formats à faire évoluer -->
         <div class="field">
           <label class="q">8. Côté formats, qu’aimeriez-vous voir évoluer pour la suite ?
             <span class="hint">Plusieurs choix possibles.</span>
@@ -357,7 +358,6 @@
           </div>
         </div>
 
-        <!-- Q9 motivation -->
         <div class="field" data-required>
           <label class="q">9. Aujourd’hui, quelle est votre motivation à poursuivre le Bootcamp ? <span class="req">*</span></label>
           <div class="opts" data-single="motivation">
@@ -374,7 +374,6 @@
           <textarea name="motivation_phrase" placeholder="Votre réponse…"></textarea>
         </div>
 
-        <!-- Q10 autre -->
         <div class="field">
           <label class="q">10. Y a-t-il autre chose que vous souhaitez partager avec nous ?
             <span class="hint">Une idée, une demande, un encouragement, une question : tout est le bienvenu.</span>
@@ -389,7 +388,6 @@
       </div>
     </form>
 
-    <!-- ============ MERCI ============ -->
     <div class="thanks hidden" id="thanks">
       <div class="check"><svg viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg></div>
       <h2>Merci pour votre retour ! 🙌</h2>
@@ -434,33 +432,49 @@ FORMATS.forEach(([key,label])=>{
   fc.appendChild(row);
 });
 
+/* ====== Type de projet : champ "Autre" conditionnel ====== */
+const typeSel = document.getElementById('typeprojet');
+const precField = document.getElementById('precisionField');
+typeSel.addEventListener('change',function(){
+  if(this.value==='Autre'){ precField.classList.remove('hidden'); }
+  else { precField.classList.add('hidden'); precField.classList.remove('invalid'); document.getElementById('typeprojet_precision').value=''; }
+});
+
 /* ====== Navigation 2 étapes ====== */
 const step1=document.getElementById('step1'),step2=document.getElementById('step2');
 const pbar=document.getElementById('pbar-fill'),pstep=document.getElementById('pstep');
-
 function showStep(n){
   if(n===1){step1.classList.remove('hidden');step2.classList.add('hidden');pbar.style.width='50%';pstep.textContent='Étape 1 / 2';}
   else{step1.classList.add('hidden');step2.classList.remove('hidden');pbar.style.width='100%';pstep.textContent='Étape 2 / 2';}
   window.scrollTo({top:0,behavior:'smooth'});
 }
 
+function fieldFilled(f){
+  const radios=f.querySelectorAll('input[type=radio]');
+  if(radios.length) return [...radios].some(r=>r.checked);
+  const c=f.querySelector('input,select,textarea');
+  return c && c.value.trim()!=='';
+}
 function validateStep1(){
-  let ok=true;
+  let ok=true,firstBad=null;
   step1.querySelectorAll('.field[data-required]').forEach(f=>{
-    const ctrl=f.querySelector('input,select');
-    const filled = ctrl && ctrl.value.trim()!=='';
+    const filled=fieldFilled(f);
     f.classList.toggle('invalid',!filled);
-    if(!filled) ok=false;
+    if(!filled){ ok=false; if(!firstBad) firstBad=f; }
   });
+  if(typeSel.value==='Autre'){
+    const pv=document.getElementById('typeprojet_precision').value.trim();
+    const bad=pv==='';
+    precField.classList.toggle('invalid',bad);
+    if(bad){ ok=false; if(!firstBad) firstBad=precField; }
+  }
+  if(firstBad) firstBad.scrollIntoView({behavior:'smooth',block:'center'});
   return ok;
 }
 function validateStep2(){
   let ok=true,firstBad=null;
   step2.querySelectorAll('.field[data-required]').forEach(f=>{
-    let filled;
-    const radios=f.querySelectorAll('input[type=radio]');
-    if(radios.length){ filled=[...radios].some(r=>r.checked); }
-    else { const c=f.querySelector('input,select,textarea'); filled=c&&c.value.trim()!==''; }
+    const filled=fieldFilled(f);
     f.classList.toggle('invalid',!filled);
     if(!filled){ ok=false; if(!firstBad) firstBad=f; }
   });
@@ -471,16 +485,12 @@ function validateStep2(){
 document.getElementById('toStep2').addEventListener('click',()=>{ if(validateStep1()) showStep(2); });
 document.getElementById('backStep1').addEventListener('click',()=>showStep(1));
 
-/* highlight option cards */
 document.querySelectorAll('.opt input').forEach(inp=>{
   inp.addEventListener('change',()=>{
-    if(inp.type==='radio'){
-      inp.closest('.opts').querySelectorAll('.opt').forEach(o=>o.classList.remove('sel'));
-    }
+    if(inp.type==='radio'){ inp.closest('.opts').querySelectorAll('.opt').forEach(o=>o.classList.remove('sel')); }
     inp.closest('.opt').classList.toggle('sel',inp.checked);
   });
 });
-/* clear invalid on input */
 document.querySelectorAll('input,select,textarea').forEach(el=>{
   el.addEventListener('input',()=>{const f=el.closest('.field');if(f)f.classList.remove('invalid');});
   el.addEventListener('change',()=>{const f=el.closest('.field');if(f)f.classList.remove('invalid');});
@@ -499,7 +509,10 @@ function collect(){
     nom: document.getElementById('nom').value.trim(),
     prenom: document.getElementById('prenom').value.trim(),
     naissance: document.getElementById('naissance').value,
+    sexe: g('sexe'),
     departement: document.getElementById('departement').value,
+    type_projet: document.getElementById('typeprojet').value,
+    type_projet_precision: document.getElementById('typeprojet_precision').value.trim(),
     satisfaction_globale: g('satisfaction'),
     note_cours: g('fmt_cours'),
     note_exercices: g('fmt_exercices'),
@@ -527,12 +540,7 @@ document.getElementById('form').addEventListener('submit',async e=>{
   const data=collect();
   try{
     if(ENDPOINT_URL && ENDPOINT_URL.indexOf('http')===0){
-      await fetch(ENDPOINT_URL,{
-        method:'POST',
-        mode:'no-cors',
-        headers:{'Content-Type':'text/plain;charset=utf-8'},
-        body:JSON.stringify(data)
-      });
+      await fetch(ENDPOINT_URL,{method:'POST',mode:'no-cors',headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify(data)});
     }
     document.getElementById('form').classList.add('hidden');
     document.getElementById('progress').classList.add('hidden');
