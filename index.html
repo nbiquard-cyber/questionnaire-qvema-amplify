@@ -498,7 +498,7 @@ document.querySelectorAll('input,select,textarea').forEach(el=>{
 
 /* ====== Collecte + envoi ====== */
 function collect(){
-  const g=name=>{const el=document.querySelector('[name="'+name+'"]:checked, [name="'+name+'"]');return el?el.value:'';};
+  const g=name=>{const el=document.querySelector('[name="'+name+'"]:checked');return el?el.value:'';};
   const multi=key=>{
     const box=document.querySelector('[data-multi="'+key+'"]');
     if(!box) return '';
