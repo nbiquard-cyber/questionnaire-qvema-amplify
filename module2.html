@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>QVEMA Amplify — Votre avis sur le Module 2</title>
+<style>
+  :root{
+    --bleu:#1F3A5F;--bleu-clair:#2E5685;--dore:#C8A24B;--dore-clair:#E0C480;
+    --gris:#5B6470;--gris-clair:#8A93A0;--bg:#F4F1EA;--carte:#FFFFFF;--bordure:#E3E6EB;--ok:#2E7D5B;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:'Inter','Segoe UI',-apple-system,BlinkMacSystemFont,sans-serif;background:linear-gradient(160deg,#1F3A5F 0%,#14253c 100%);min-height:100vh;color:var(--bleu);padding:24px 16px;line-height:1.5}
+  .wrap{max-width:680px;margin:0 auto}
+  .brand{text-align:center;margin-bottom:18px}
+  .brand .kicker{color:var(--dore);font-weight:700;letter-spacing:.18em;font-size:.72rem;text-transform:uppercase}
+  .brand h1{color:#fff;font-size:1.5rem;margin-top:6px;font-weight:800}
+  .brand p{color:#cdd6e3;font-size:.92rem;margin-top:6px}
+  .card{background:var(--carte);border-radius:18px;padding:30px 26px;box-shadow:0 18px 50px rgba(0,0,0,.28)}
+  .progress{display:flex;align-items:center;gap:10px;margin-bottom:22px}
+  .pbar{flex:1;height:7px;background:var(--bordure);border-radius:99px;overflow:hidden}
+  .pbar span{display:block;height:100%;width:50%;background:linear-gradient(90deg,var(--dore),var(--dore-clair));border-radius:99px;transition:width .35s ease}
+  .pstep{font-size:.78rem;color:var(--gris);font-weight:600;white-space:nowrap}
+  .step-head{margin-bottom:20px}
+  .step-head h2{font-size:1.22rem;color:var(--bleu)}
+  .step-head .sub{color:var(--gris);font-size:.9rem;margin-top:6px}
+  .field{margin-bottom:18px}
+  label.q{display:block;font-weight:650;font-size:.98rem;margin-bottom:8px;color:var(--bleu)}
+  label.q .req{color:#c0392b}
+  .hint{font-size:.8rem;color:var(--gris-clair);font-weight:400;margin-top:2px;display:block}
+  input[type=text],input[type=email],select,textarea{width:100%;padding:12px 14px;border:1.5px solid var(--bordure);border-radius:11px;font-size:1rem;font-family:inherit;color:var(--bleu);background:#fff;transition:border .2s,box-shadow .2s}
+  input:focus,select:focus,textarea:focus{outline:none;border-color:var(--bleu-clair);box-shadow:0 0 0 3px rgba(46,86,133,.13)}
+  textarea{resize:vertical;min-height:78px}
+  select{appearance:none;background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='%235B6470' stroke-width='2.5'><path d='M6 9l6 6 6-6'/></svg>");background-repeat:no-repeat;background-position:right 14px center;padding-right:38px}
+  .scale{display:flex;gap:8px;flex-wrap:wrap}
+  .scale label{flex:1;min-width:54px;text-align:center;cursor:pointer}
+  .scale input{position:absolute;opacity:0;pointer-events:none}
+  .scale .dot{display:flex;align-items:center;justify-content:center;height:46px;border:1.5px solid var(--bordure);border-radius:11px;font-weight:700;color:var(--gris);transition:all .15s}
+  .scale input:checked + .dot{background:var(--bleu);border-color:var(--bleu);color:#fff;transform:translateY(-2px)}
+  .scale-legend{display:flex;justify-content:space-between;font-size:.74rem;color:var(--gris-clair);margin-top:6px}
+  .nps{display:flex;gap:5px;flex-wrap:wrap}
+  .nps label{cursor:pointer}
+  .nps input{position:absolute;opacity:0;pointer-events:none}
+  .nps .n{display:flex;align-items:center;justify-content:center;width:38px;height:40px;border:1.4px solid var(--bordure);border-radius:9px;font-size:.9rem;font-weight:700;color:var(--gris);transition:all .15s}
+  .nps input:checked + .n{background:var(--bleu);border-color:var(--bleu);color:#fff}
+  .opts{display:flex;flex-direction:column;gap:9px}
+  .opt{display:flex;align-items:flex-start;gap:11px;padding:11px 14px;border:1.5px solid var(--bordure);border-radius:11px;cursor:pointer;transition:all .15s}
+  .opt:hover{border-color:var(--dore)}
+  .opt input{margin-top:2px;width:18px;height:18px;accent-color:var(--bleu);flex-shrink:0}
+  .opt.sel{border-color:var(--bleu);background:#F5F8FC}
+  .opt span{font-size:.95rem}
+  .rating-row{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:10px 0;border-bottom:1px solid var(--bordure)}
+  .rating-row:last-child{border-bottom:none}
+  .rating-row .name{font-size:.92rem;font-weight:550;flex:1}
+  .mini{display:flex;gap:6px}
+  .mini label{cursor:pointer}
+  .mini input{position:absolute;opacity:0;pointer-events:none}
+  .mini .d{display:flex;align-items:center;justify-content:center;width:34px;height:34px;border:1.4px solid var(--bordure);border-radius:8px;font-size:.85rem;font-weight:700;color:var(--gris);transition:all .15s}
+  .mini input:checked + .d{background:var(--dore);border-color:var(--dore);color:#3a2e10}
+  .err{color:#c0392b;font-size:.82rem;margin-top:6px;display:none}
+  .field.invalid input,.field.invalid select,.field.invalid textarea{border-color:#c0392b}
+  .field.invalid .err{display:block}
+  .nav{display:flex;gap:12px;margin-top:26px}
+  button{font-family:inherit;font-size:1rem;font-weight:700;border:none;border-radius:12px;padding:14px 22px;cursor:pointer;transition:transform .12s,box-shadow .2s,opacity .2s}
+  button:active{transform:translateY(1px)}
+  .btn-primary{background:linear-gradient(135deg,var(--dore),var(--dore-clair));color:#3a2e10;flex:1;box-shadow:0 8px 22px rgba(200,162,75,.4)}
+  .btn-primary:hover{box-shadow:0 10px 28px rgba(200,162,75,.55)}
+  .btn-ghost{background:#fff;color:var(--bleu);border:1.6px solid var(--bordure)}
+  .btn-ghost:hover{border-color:var(--bleu-clair)}
+  button[disabled]{opacity:.6;cursor:not-allowed}
+  .hidden{display:none}
+  .foot{text-align:center;color:#9fb0c6;font-size:.78rem;margin-top:20px}
+  .thanks{text-align:center;padding:18px 6px}
+  .thanks .check{width:74px;height:74px;border-radius:50%;background:linear-gradient(135deg,var(--ok),#3da576);display:flex;align-items:center;justify-content:center;margin:0 auto 18px}
+  .thanks .check svg{width:38px;height:38px;stroke:#fff;stroke-width:3;fill:none}
+  .thanks h2{color:var(--bleu);font-size:1.5rem}
+  .thanks p{color:var(--gris);margin-top:10px;font-size:.98rem}
+  .section-label{font-size:.72rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--dore);margin:26px 0 10px}
+  .section-label:first-child{margin-top:0}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="brand">
+    <div class="kicker">QVEMA Amplify · Bootcamp</div>
+    <h1>Votre avis sur le Module 2</h1>
+    <p>Trouver un vrai problème et le valider sur le terrain. 2 minutes pour nous aider à améliorer la suite.</p>
+  </div>
+
+  <div class="card">
+    <div class="progress" id="progress">
+      <div class="pbar"><span id="pbar-fill"></span></div>
+      <div class="pstep" id="pstep">Étape 1 / 2</div>
+    </div>
+
+    <form id="form" novalidate>
+      <!-- ÉTAPE 1 -->
+      <div class="step" id="step1">
+        <div class="step-head">
+          <h2>Vous êtes…</h2>
+          <div class="sub">Pour relier votre retour à votre parcours (on ne re-demande pas le reste, on l’a déjà 🙂).</div>
+        </div>
+
+        <div class="field" data-required>
+          <label class="q" for="email">Votre email <span class="req">*</span>
+            <span class="hint">Le même que celui utilisé pour le Bootcamp.</span>
+          </label>
+          <input type="email" id="email" name="email" autocomplete="email" placeholder="prenom@email.com" />
+          <div class="err">Merci d’indiquer un email valide.</div>
+        </div>
+
+        <div class="field" data-required>
+          <label class="q" for="promo">Votre promo <span class="req">*</span></label>
+          <select id="promo" name="promo">
+            <option value="" selected disabled>— Sélectionnez votre promo —</option>
+            <option value="Promo 1">Promo 1</option>
+            <option value="Promo 2">Promo 2</option>
+            <option value="Promo 3">Promo 3</option>
+            <option value="Promo 4">Promo 4</option>
+            <option value="Promo 5">Promo 5</option>
+            <option value="Promo 6">Promo 6</option>
+          </select>
+          <div class="err">Merci de sélectionner votre promo.</div>
+        </div>
+
+        <div class="field" data-required>
+          <label class="q" for="prenom">Prénom <span class="req">*</span></label>
+          <input type="text" id="prenom" name="prenom" autocomplete="given-name" />
+          <div class="err">Merci d’indiquer votre prénom.</div>
+        </div>
+
+        <div class="field" data-required>
+          <label class="q" for="nom">Nom <span class="req">*</span></label>
+          <input type="text" id="nom" name="nom" autocomplete="family-name" />
+          <div class="err">Merci d’indiquer votre nom.</div>
+        </div>
+
+        <div class="nav">
+          <button type="button" class="btn-primary" id="toStep2">Continuer →</button>
+        </div>
+      </div>
+
+      <!-- ÉTAPE 2 -->
+      <div class="step hidden" id="step2">
+        <div class="step-head">
+          <h2>Votre retour sur le Module 2</h2>
+          <div class="sub">Identifier un vrai problème, comprendre votre client, et le valider sur le terrain.</div>
+        </div>
+
+        <div class="section-label">Satisfaction</div>
+
+        <div class="field" data-required>
+          <label class="q">1. Globalement, à quel point êtes-vous satisfait·e du Module 2 ? <span class="req">*</span></label>
+          <div class="scale" id="scale-sat"></div>
+          <div class="scale-legend"><span>Pas du tout</span><span>Très satisfait·e</span></div>
+          <div class="err">Merci de choisir une note.</div>
+        </div>
+
+        <div class="field" data-required>
+          <label class="q">2. Recommanderiez-vous ce module à un·e autre entrepreneur·e ? <span class="req">*</span>
+            <span class="hint">0 = pas du tout · 10 = absolument.</span>
+          </label>
+          <div class="nps" id="nps"></div>
+          <div class="err">Merci de choisir une note.</div>
+        </div>
+
+        <div class="field" data-required data-allformats>
+          <label class="q">3. Comment évaluez-vous les formats de ce module ? <span class="req">*</span>
+            <span class="hint">Notez chaque format de 1 à 5.</span>
+          </label>
+          <div id="formats"></div>
+          <div class="err">Merci de noter chaque format.</div>
+        </div>
+
+        <div class="field" data-required>
+          <label class="q">4. Le niveau / rythme du module vous a-t-il paru adapté ? <span class="req">*</span></label>
+          <div class="opts" data-single="pedagogie">
+            <label class="opt"><input type="radio" name="pedagogie" value="Tout à fait adapté"><span>Tout à fait adapté</span></label>
+            <label class="opt"><input type="radio" name="pedagogie" value="Plutôt adapté"><span>Plutôt adapté</span></label>
+            <label class="opt"><input type="radio" name="pedagogie" value="Trop facile / trop lent"><span>Trop facile / trop lent</span></label>
+            <label class="opt"><input type="radio" name="pedagogie" value="Trop dense / trop rapide"><span>Trop dense / trop rapide</span></label>
+          </div>
+          <div class="err">Merci de choisir une réponse.</div>
+        </div>
+
+        <div class="section-label">Ce module en pratique</div>
+
+        <div class="field" data-required>
+          <label class="q">5. Où en êtes-vous concrètement dans la validation de votre projet ? <span class="req">*</span>
+            <span class="hint">Plusieurs choix possibles — soyez honnête, c’est sans jugement.</span>
+          </label>
+          <div class="opts" data-multi="avancement">
+            <label class="opt"><input type="checkbox" value="J'ai affiné mon problème avec les 4 filtres"><span>J’ai affiné mon problème avec les 4 filtres</span></label>
+            <label class="opt"><input type="checkbox" value="J'ai défini mon persona client"><span>J’ai défini mon persona client</span></label>
+            <label class="opt"><input type="checkbox" value="J'ai identifié utilisateur / payeur / prescripteur"><span>J’ai identifié qui utilise, qui paye, qui prescrit</span></label>
+            <label class="opt"><input type="checkbox" value="J'ai mené des interviews clients (terrain)"><span>J’ai mené des interviews clients (sur le terrain)</span></label>
+            <label class="opt"><input type="checkbox" value="J'ai créé une page de test"><span>J’ai créé une page de test</span></label>
+            <label class="opt"><input type="checkbox" value="Pas encore eu le temps de passer à l'action"><span>Pas encore eu le temps de passer à l’action</span></label>
+          </div>
+          <div class="err">Merci de cocher au moins une réponse.</div>
+        </div>
+
+        <div class="field" data-required>
+          <label class="q">6. Qu’est-ce qui vous a le plus aidé·e dans ce module ? <span class="req">*</span>
+            <span class="hint">Plusieurs choix possibles.</span>
+          </label>
+          <div class="opts" data-multi="plus_aide">
+            <label class="opt"><input type="checkbox" value="Les 4 filtres du problème"><span>Les 4 filtres pour valider un problème</span></label>
+            <label class="opt"><input type="checkbox" value="Utilisateur / payeur / prescripteur"><span>Comprendre utilisateur / payeur / prescripteur</span></label>
+            <label class="opt"><input type="checkbox" value="Les modèles de monétisation"><span>Les façons de monétiser un business</span></label>
+            <label class="opt"><input type="checkbox" value="La méthode du persona"><span>La méthode du persona</span></label>
+            <label class="opt"><input type="checkbox" value="Le script d'interview client"><span>Le script d’interview client (les 5 questions)</span></label>
+            <label class="opt"><input type="checkbox" value="La création d'une page de test"><span>Créer une page de test sans compétence technique</span></label>
+          </div>
+        </div>
+
+        <div class="field" data-required>
+          <label class="q">7. Qu’avez-vous le plus apprécié dans ce module ? <span class="req">*</span>
+            <span class="hint">Un cours, un exercice, un déclic…</span>
+          </label>
+          <textarea name="apprecie" placeholder="Votre réponse…"></textarea>
+          <div class="err">Merci de répondre à cette question.</div>
+        </div>
+
+        <div class="field" data-required>
+          <label class="q">8. Qu’est-ce qui vous a freiné·e, frustré·e ou manqué ? <span class="req">*</span></label>
+          <textarea name="frustration" placeholder="Votre réponse…"></textarea>
+          <div class="err">Merci de répondre à cette question.</div>
+        </div>
+
+        <div class="field" data-required>
+          <label class="q">9. Sur quoi auriez-vous aimé plus d’accompagnement dans ce module ? <span class="req">*</span>
+            <span class="hint">Ex. mener les interviews, construire la page test, choisir la niche…</span>
+          </label>
+          <textarea name="besoin" placeholder="Votre réponse…"></textarea>
+          <div class="err">Merci de répondre à cette question.</div>
+        </div>
+
+        <div class="field" data-required>
+          <label class="q">10. Autre chose à partager ? <span class="req">*</span></label>
+          <textarea name="autre" placeholder="Tout est le bienvenu…"></textarea>
+          <div class="err">Merci de répondre à cette question.</div>
+        </div>
+
+        <div class="nav">
+          <button type="button" class="btn-ghost" id="backStep1">← Retour</button>
+          <button type="submit" class="btn-primary" id="submitBtn">Envoyer mon retour</button>
+        </div>
+      </div>
+    </form>
+
+    <div class="thanks hidden" id="thanks">
+      <div class="check"><svg viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg></div>
+      <h2>Merci pour votre retour ! 🙌</h2>
+      <p>Chaque réponse nous aide à affiner les prochains modules du Bootcamp. À très vite pour la suite !</p>
+    </div>
+  </div>
+
+  <div class="foot">QVEMA Amplify — vos réponses restent confidentielles et servent uniquement à améliorer le programme.</div>
+</div>
+
+<script>
+/* ====== CONFIG ====== */
+const ENDPOINT_URL = "https://script.google.com/macros/s/AKfycbzVcNiXd0lAOFtyBWOE4vOaZOj0LHJDqO8zJ_yn6B_nRVtA4mTjfHcR9itlnjL-cAyJnA/exec";
+const MODULE_NUM = "2"; /* <<< pour dupliquer ce formulaire sur un autre module, changez ce numéro + le titre + les questions spécifiques */
+
+/* ====== Échelle satisfaction (1 à 5) ====== */
+const sc = document.getElementById('scale-sat');
+for(let i=1;i<=5;i++){
+  const lab=document.createElement('label');
+  lab.innerHTML='<input type="radio" name="satisfaction" value="'+i+'"><span class="dot">'+i+'</span>';
+  sc.appendChild(lab);
+}
+/* ====== NPS (0 à 10) ====== */
+const npsBox=document.getElementById('nps');
+for(let i=0;i<=10;i++){
+  const lab=document.createElement('label');
+  lab.innerHTML='<input type="radio" name="nps" value="'+i+'"><span class="n">'+i+'</span>';
+  npsBox.appendChild(lab);
+}
+/* ====== Notation par format ====== */
+const FORMATS=[
+  ["cours","Les cours vidéo"],
+  ["exercices","Les exercices guidés"],
+  ["live_coachs","Les lives avec les coachs/ambassadeurs"],
+  ["live_equipe","Les lives avec l’équipe Amplify"],
+  ["qcm","Les QCM"],
+  ["circle","La communauté Circle"]
+];
+const fc=document.getElementById('formats');
+FORMATS.forEach(([key,label])=>{
+  const row=document.createElement('div');row.className='rating-row';
+  let mini='<div class="mini">';
+  for(let i=1;i<=5;i++) mini+='<label><input type="radio" name="fmt_'+key+'" value="'+i+'"><span class="d">'+i+'</span></label>';
+  mini+='</div>';
+  row.innerHTML='<div class="name">'+label+'</div>'+mini;
+  fc.appendChild(row);
+});
+
+/* ====== Navigation ====== */
+const step1=document.getElementById('step1'),step2=document.getElementById('step2');
+const pbar=document.getElementById('pbar-fill'),pstep=document.getElementById('pstep');
+function showStep(n){
+  if(n===1){step1.classList.remove('hidden');step2.classList.add('hidden');pbar.style.width='50%';pstep.textContent='Étape 1 / 2';}
+  else{step1.classList.add('hidden');step2.classList.remove('hidden');pbar.style.width='100%';pstep.textContent='Étape 2 / 2';}
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+function fieldFilled(f){
+  const checks=f.querySelectorAll('input[type=radio],input[type=checkbox]');
+  if(checks.length) return [...checks].some(r=>r.checked);
+  const c=f.querySelector('input,select,textarea');
+  if(c && c.type==='email') return /^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(c.value.trim());
+  return c && c.value.trim()!=='';
+}
+function validate(step){
+  let ok=true,firstBad=null;
+  step.querySelectorAll('.field[data-required]').forEach(f=>{
+    let filled;
+    if(f.hasAttribute('data-allformats')){
+      filled=[...f.querySelectorAll('.rating-row')].every(row=>row.querySelector('input:checked'));
+    } else {
+      filled=fieldFilled(f);
+    }
+    f.classList.toggle('invalid',!filled);
+    if(!filled){ ok=false; if(!firstBad) firstBad=f; }
+  });
+  if(firstBad) firstBad.scrollIntoView({behavior:'smooth',block:'center'});
+  return ok;
+}
+document.getElementById('toStep2').addEventListener('click',()=>{ if(validate(step1)) showStep(2); });
+document.getElementById('backStep1').addEventListener('click',()=>showStep(1));
+document.querySelectorAll('.opt input').forEach(inp=>{
+  inp.addEventListener('change',()=>{
+    if(inp.type==='radio'){ inp.closest('.opts').querySelectorAll('.opt').forEach(o=>o.classList.remove('sel')); }
+    inp.closest('.opt').classList.toggle('sel',inp.checked);
+  });
+});
+document.querySelectorAll('input,select,textarea').forEach(el=>{
+  el.addEventListener('input',()=>{const f=el.closest('.field');if(f)f.classList.remove('invalid');});
+  el.addEventListener('change',()=>{const f=el.closest('.field');if(f)f.classList.remove('invalid');});
+});
+
+/* ====== Collecte (clés = intitulés de colonnes) ====== */
+function collect(){
+  const g=name=>{const el=document.querySelector('[name="'+name+'"]:checked');return el?el.value:'';};
+  const multi=key=>{const box=document.querySelector('[data-multi="'+key+'"]');return box?[...box.querySelectorAll('input:checked')].map(i=>i.value).join(' ; '):'';};
+  return {
+    "Horodatage": new Date().toISOString(),
+    "Module": MODULE_NUM,
+    "Promo": document.getElementById('promo').value,
+    "Email": document.getElementById('email').value.trim(),
+    "Prénom": document.getElementById('prenom').value.trim(),
+    "Nom": document.getElementById('nom').value.trim(),
+    "Satisfaction globale (1-5)": g('satisfaction'),
+    "Recommandation (0-10)": g('nps'),
+    "Niveau / rythme": g('pedagogie'),
+    "Note cours vidéo": g('fmt_cours'),
+    "Note exercices": g('fmt_exercices'),
+    "Note lives coachs/ambassadeurs": g('fmt_live_coachs'),
+    "Note lives équipe Amplify": g('fmt_live_equipe'),
+    "Note QCM": g('fmt_qcm'),
+    "Note communauté Circle": g('fmt_circle'),
+    "Avancement validation terrain": multi('avancement'),
+    "Ce qui a le plus aidé": multi('plus_aide'),
+    "Le plus apprécié": document.querySelector('[name=apprecie]').value.trim(),
+    "Frustrations / freins": document.querySelector('[name=frustration]').value.trim(),
+    "Besoin d'accompagnement": document.querySelector('[name=besoin]').value.trim(),
+    "Autre chose à partager": document.querySelector('[name=autre]').value.trim()
+  };
+}
+
+document.getElementById('form').addEventListener('submit',async e=>{
+  e.preventDefault();
+  if(!validate(step2)) return;
+  const btn=document.getElementById('submitBtn');
+  btn.disabled=true; btn.textContent='Envoi en cours…';
+  try{
+    if(ENDPOINT_URL && ENDPOINT_URL.indexOf('http')===0){
+      await fetch(ENDPOINT_URL,{method:'POST',mode:'no-cors',headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify(collect())});
+    }
+    document.getElementById('form').classList.add('hidden');
+    document.getElementById('progress').classList.add('hidden');
+    document.getElementById('thanks').classList.remove('hidden');
+    window.scrollTo({top:0,behavior:'smooth'});
+  }catch(err){
+    btn.disabled=false; btn.textContent='Envoyer mon retour';
+    alert("Un souci est survenu lors de l'envoi. Merci de réessayer dans un instant.");
+  }
+});
+</script>
+</body>
+</html>
