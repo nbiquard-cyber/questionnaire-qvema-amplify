@@ -150,22 +150,29 @@
         <div class="section-label">Satisfaction</div>
 
         <div class="field" data-required>
-          <label class="q">1. Globalement, à quel point êtes-vous satisfait·e du Module 2 ? <span class="req">*</span></label>
+          <label class="q">1. À quel point êtes-vous satisfait·e de ce module (Module 2) ? <span class="req">*</span></label>
           <div class="scale" id="scale-sat"></div>
           <div class="scale-legend"><span>Pas du tout</span><span>Très satisfait·e</span></div>
           <div class="err">Merci de choisir une note.</div>
         </div>
 
         <div class="field" data-required>
-          <label class="q">2. Recommanderiez-vous ce module à un·e autre entrepreneur·e ? <span class="req">*</span>
-            <span class="hint">0 = pas du tout · 10 = absolument.</span>
+          <label class="q">2. Et globalement, à quel point êtes-vous satisfait·e du Bootcamp QVEMA Amplify jusqu’ici ? <span class="req">*</span></label>
+          <div class="scale" id="scale-satbc"></div>
+          <div class="scale-legend"><span>Pas du tout</span><span>Très satisfait·e</span></div>
+          <div class="err">Merci de choisir une note.</div>
+        </div>
+
+        <div class="field" data-required>
+          <label class="q">3. Quelle est la probabilité que vous recommandiez le Bootcamp QVEMA Amplify à un·e autre entrepreneur·e ? <span class="req">*</span>
+            <span class="hint">0 = pas du tout probable · 10 = extrêmement probable.</span>
           </label>
           <div class="nps" id="nps"></div>
           <div class="err">Merci de choisir une note.</div>
         </div>
 
         <div class="field" data-required data-allformats>
-          <label class="q">3. Comment évaluez-vous les formats de ce module ? <span class="req">*</span>
+          <label class="q">4. Comment évaluez-vous les formats de ce module ? <span class="req">*</span>
             <span class="hint">Notez chaque format de 1 à 5.</span>
           </label>
           <div id="formats"></div>
@@ -173,7 +180,7 @@
         </div>
 
         <div class="field" data-required>
-          <label class="q">4. Le niveau / rythme du module vous a-t-il paru adapté ? <span class="req">*</span></label>
+          <label class="q">5. Le niveau / rythme du module vous a-t-il paru adapté ? <span class="req">*</span></label>
           <div class="opts" data-single="pedagogie">
             <label class="opt"><input type="radio" name="pedagogie" value="Tout à fait adapté"><span>Tout à fait adapté</span></label>
             <label class="opt"><input type="radio" name="pedagogie" value="Plutôt adapté"><span>Plutôt adapté</span></label>
@@ -186,7 +193,7 @@
         <div class="section-label">Ce module en pratique</div>
 
         <div class="field" data-required>
-          <label class="q">5. Où en êtes-vous concrètement dans la validation de votre projet ? <span class="req">*</span>
+          <label class="q">6. Où en êtes-vous concrètement dans la validation de votre projet ? <span class="req">*</span>
             <span class="hint">Plusieurs choix possibles — soyez honnête, c’est sans jugement.</span>
           </label>
           <div class="opts" data-multi="avancement">
@@ -201,7 +208,7 @@
         </div>
 
         <div class="field" data-required>
-          <label class="q">6. Qu’est-ce qui vous a le plus aidé·e dans ce module ? <span class="req">*</span>
+          <label class="q">7. Qu’est-ce qui vous a le plus aidé·e dans ce module ? <span class="req">*</span>
             <span class="hint">Plusieurs choix possibles.</span>
           </label>
           <div class="opts" data-multi="plus_aide">
@@ -215,7 +222,7 @@
         </div>
 
         <div class="field" data-required>
-          <label class="q">7. Qu’avez-vous le plus apprécié dans ce module ? <span class="req">*</span>
+          <label class="q">8. Qu’avez-vous le plus apprécié dans ce module ? <span class="req">*</span>
             <span class="hint">Un cours, un exercice, un déclic…</span>
           </label>
           <textarea name="apprecie" placeholder="Votre réponse…"></textarea>
@@ -223,13 +230,13 @@
         </div>
 
         <div class="field" data-required>
-          <label class="q">8. Qu’est-ce qui vous a freiné·e, frustré·e ou manqué ? <span class="req">*</span></label>
+          <label class="q">9. Qu’est-ce qui vous a freiné·e, frustré·e ou manqué ? <span class="req">*</span></label>
           <textarea name="frustration" placeholder="Votre réponse…"></textarea>
           <div class="err">Merci de répondre à cette question.</div>
         </div>
 
         <div class="field" data-required>
-          <label class="q">9. Sur quoi auriez-vous aimé plus d’accompagnement dans ce module ? <span class="req">*</span>
+          <label class="q">10. Sur quoi auriez-vous aimé plus d’accompagnement dans ce module ? <span class="req">*</span>
             <span class="hint">Ex. mener les interviews, construire la page test, choisir la niche…</span>
           </label>
           <textarea name="besoin" placeholder="Votre réponse…"></textarea>
@@ -237,7 +244,7 @@
         </div>
 
         <div class="field" data-required>
-          <label class="q">10. Autre chose à partager ? <span class="req">*</span></label>
+          <label class="q">11. Autre chose à partager ? <span class="req">*</span></label>
           <textarea name="autre" placeholder="Tout est le bienvenu…"></textarea>
           <div class="err">Merci de répondre à cette question.</div>
         </div>
@@ -264,13 +271,14 @@
 const ENDPOINT_URL = "https://script.google.com/macros/s/AKfycbzVcNiXd0lAOFtyBWOE4vOaZOj0LHJDqO8zJ_yn6B_nRVtA4mTjfHcR9itlnjL-cAyJnA/exec";
 const MODULE_NUM = "2"; /* <<< pour dupliquer ce formulaire sur un autre module, changez ce numéro + le titre + les questions spécifiques */
 
-/* ====== Échelle satisfaction (1 à 5) ====== */
-const sc = document.getElementById('scale-sat');
-for(let i=1;i<=5;i++){
-  const lab=document.createElement('label');
-  lab.innerHTML='<input type="radio" name="satisfaction" value="'+i+'"><span class="dot">'+i+'</span>';
-  sc.appendChild(lab);
+/* ====== Échelles 1 à 5 ====== */
+function buildScale(id,name){
+  const box=document.getElementById(id);
+  for(let i=1;i<=5;i++){const lab=document.createElement('label');lab.innerHTML='<input type="radio" name="'+name+'" value="'+i+'"><span class="dot">'+i+'</span>';box.appendChild(lab);}
 }
+buildScale('scale-sat','satisfaction');
+buildScale('scale-satbc','satisfaction_bootcamp');
+
 /* ====== NPS (0 à 10) ====== */
 const npsBox=document.getElementById('nps');
 for(let i=0;i<=10;i++){
@@ -351,8 +359,9 @@ function collect(){
     "Email": document.getElementById('email').value.trim(),
     "Prénom": document.getElementById('prenom').value.trim(),
     "Nom": document.getElementById('nom').value.trim(),
-    "Satisfaction globale (1-5)": g('satisfaction'),
-    "Recommandation (0-10)": g('nps'),
+    "Satisfaction module (1-5)": g('satisfaction'),
+    "Satisfaction Bootcamp (1-5)": g('satisfaction_bootcamp'),
+    "Recommandation Bootcamp (0-10)": g('nps'),
     "Niveau / rythme": g('pedagogie'),
     "Note cours vidéo": g('fmt_cours'),
     "Note exercices": g('fmt_exercices'),
