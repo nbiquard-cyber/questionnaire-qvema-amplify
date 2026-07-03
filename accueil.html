@@ -104,9 +104,11 @@
         </div>
 
         <div class="field" data-required>
-          <label class="q" for="naissance">Date de naissance <span class="req">*</span></label>
-          <input type="date" id="naissance" name="naissance" />
-          <div class="err">Merci d’indiquer ta date de naissance.</div>
+          <label class="q" for="naissance">Date de naissance <span class="req">*</span>
+            <span class="hint">Format JJ/MM/AAAA — tape-la directement (les « / » s’ajoutent tout seuls).</span>
+          </label>
+          <input type="text" id="naissance" name="naissance" inputmode="numeric" placeholder="JJ/MM/AAAA" maxlength="10" autocomplete="bday" />
+          <div class="err">Merci d’indiquer ta date de naissance au format JJ/MM/AAAA.</div>
         </div>
 
         <div class="field" data-required>
@@ -272,10 +274,27 @@ function showStep(n){
   else{step1.classList.add('hidden');step2.classList.remove('hidden');pbar.style.width='100%';pstep.textContent='Étape 2 / 2';}
   window.scrollTo({top:0,behavior:'smooth'});
 }
+function validDOB(s){
+  const m=String(s).match(/^(\d{2})\/(\d{2})\/(\d{4})$/);
+  if(!m) return false;
+  const d=+m[1],mo=+m[2],y=+m[3];
+  if(mo<1||mo>12||d<1||d>31||y<1900||y>new Date().getFullYear()) return false;
+  const dt=new Date(y,mo-1,d);
+  return dt.getFullYear()===y && dt.getMonth()===mo-1 && dt.getDate()===d;
+}
+/* Saisie JJ/MM/AAAA : insertion automatique des "/" */
+const dobEl=document.getElementById('naissance');
+dobEl.addEventListener('input',()=>{
+  let x=dobEl.value.replace(/\D/g,'').slice(0,8),o=x;
+  if(x.length>4) o=x.slice(0,2)+'/'+x.slice(2,4)+'/'+x.slice(4);
+  else if(x.length>2) o=x.slice(0,2)+'/'+x.slice(2);
+  dobEl.value=o;
+});
 function fieldFilled(f){
   const checks=f.querySelectorAll('input[type=radio],input[type=checkbox]');
   if(checks.length) return [...checks].some(r=>r.checked);
   const c=f.querySelector('input,select,textarea');
+  if(c && c.id==='naissance') return validDOB(c.value.trim());
   if(c && c.type==='email') return /^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(c.value.trim());
   return c && c.value.trim()!=='';
 }
