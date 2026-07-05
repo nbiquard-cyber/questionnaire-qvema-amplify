@@ -80,6 +80,52 @@
 </style>
 </head>
 <body>
+<!-- Contrôle d'accès : email d'inscription (table Clients Airtable) -->
+<div id="clientGate" style="position:fixed;inset:0;z-index:99999;background:#0f2540;display:flex;align-items:center;justify-content:center;padding:20px;font-family:inherit">
+  <div style="background:#fff;border-radius:16px;max-width:430px;width:100%;padding:30px 26px;box-shadow:0 20px 60px rgba(0,0,0,.35);text-align:center">
+    <h2 style="margin:0 0 8px;font-size:1.25rem;color:#0f2540">Accès au questionnaire</h2>
+    <p style="margin:0 0 18px;font-size:.95rem;color:#5a6b7f;line-height:1.5">Entre l'adresse email utilisée lors de ton inscription au bootcamp pour continuer.</p>
+    <input id="clientGateEmail" type="email" autocomplete="email" placeholder="prenom@email.com"
+      style="width:100%;padding:12px 14px;border:1.5px solid #cdd7e2;border-radius:11px;font-size:1rem;margin-bottom:12px;color:#0f2540;box-sizing:border-box" />
+    <button id="clientGateBtn" type="button"
+      style="width:100%;padding:12px;border:none;border-radius:11px;background:#1F6FEB;color:#fff;font-size:1rem;font-weight:700;cursor:pointer">Vérifier et continuer</button>
+    <div id="clientGateMsg" style="min-height:20px;margin-top:12px;font-size:.9rem;line-height:1.5"></div>
+  </div>
+</div>
+<script>
+(function(){
+  var gate=document.getElementById('clientGate'),input=document.getElementById('clientGateEmail'),
+      btn=document.getElementById('clientGateBtn'),msg=document.getElementById('clientGateMsg'),
+      CONTACT='contact@qvemaamplify.com';
+  function setMsg(h){ msg.innerHTML=h; msg.style.color='#c0392b'; }
+  function link(){ return '<a href="mailto:'+CONTACT+'" style="color:#1F6FEB;font-weight:600">'+CONTACT+'</a>'; }
+  function isEmail(v){ return /^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(v); }
+  async function verify(){
+    var email=(input.value||'').trim();
+    if(!isEmail(email)){ setMsg('Merci d’indiquer une adresse email valide.'); return; }
+    btn.disabled=true; var old=btn.textContent; btn.textContent='Vérification…'; msg.innerHTML='';
+    try{
+      var r=await fetch('/api/check-client',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({email:email})});
+      var j=await r.json().catch(function(){return null;});
+      if(r.ok && j && j.found===true){
+        window.__clientEmail=email;
+        var f=document.getElementById('email');
+        if(f){ f.value=email; f.readOnly=true; f.style.background='#eef2f7'; }
+        gate.style.display='none';
+      } else if(r.ok && j && j.found===false){
+        btn.disabled=false; btn.textContent=old;
+        setMsg('Cet email ne correspond à aucune inscription. Utilise l’adresse email de ton inscription, ou écris à '+link()+'.');
+      } else { throw new Error('bad'); }
+    }catch(e){
+      btn.disabled=false; btn.textContent=old;
+      setMsg('Vérification impossible pour le moment. Réessaie dans un instant. Si le problème persiste, écris à '+link()+'.');
+    }
+  }
+  btn.addEventListener('click',verify);
+  input.addEventListener('keydown',function(e){ if(e.key==='Enter'){ e.preventDefault(); verify(); } });
+  input.focus();
+})();
+</script>
 <div class="wrap">
   <div class="brand">
     <div class="kicker">QVEMA Amplify · Bootcamp</div>
