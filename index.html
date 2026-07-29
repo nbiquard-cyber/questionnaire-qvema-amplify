@@ -136,14 +136,14 @@
   </div>
 
   <div class="card">
-    <div class="progress" id="progress">
+    <div class="progress hidden" id="progress">
       <div class="pbar"><span id="pbar-fill"></span></div>
       <div class="pstep" id="pstep">Étape 1 / 2</div>
     </div>
 
     <form id="form" novalidate>
       <!-- ÉTAPE 1 -->
-      <div class="step" id="step1">
+      <div class="step hidden" id="step1">
         <div class="step-head">
           <h2>Faisons connaissance</h2>
           <div class="sub">Quelques infos pour relier votre retour à votre parcours.</div>
@@ -324,8 +324,8 @@
         </div>
       </div>
 
-      <!-- ÉTAPE 2 -->
-      <div class="step hidden" id="step2">
+      <!-- ÉTAPE 2 (désormais unique : l'identité vient du formulaire d'accueil) -->
+      <div class="step" id="step2">
         <div class="step-head">
           <h2>Votre expérience jusqu’ici</h2>
           <div class="sub">Pas de bonne ou mauvaise réponse — votre franchise est ce qui nous aide le plus.</div>
@@ -435,7 +435,7 @@
         </div>
 
         <div class="nav">
-          <button type="button" class="btn-ghost" id="backStep1">← Retour</button>
+          <button type="button" class="btn-ghost hidden" id="backStep1">← Retour</button>
           <button type="submit" class="btn-primary" id="submitBtn">Envoyer mes réponses</button>
         </div>
       </div>
