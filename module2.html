@@ -100,15 +100,30 @@
   function setMsg(h){ msg.innerHTML=h; msg.style.color='#c0392b'; }
   function link(){ return '<a href="mailto:'+CONTACT+'" style="color:#1F6FEB;font-weight:600">'+CONTACT+'</a>'; }
   function isEmail(v){ return /^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(v); }
+  function escapeHtml(s){ var d=document.createElement('div'); d.textContent=(s==null?'':s); return d.innerHTML; }
+  function spin(){ return '<span class="ld-spin"></span>'; }
+  (function(){ if(document.getElementById('ld-spin-css')) return; var st=document.createElement('style'); st.id='ld-spin-css'; st.textContent='.ld-spin{display:inline-block;width:14px;height:14px;margin-right:8px;vertical-align:-2px;border:2px solid rgba(255,255,255,.45);border-top-color:#fff;border-radius:50%;animation:ldspin .7s linear infinite}@keyframes ldspin{to{transform:rotate(360deg)}}.qv-greet{margin:0 0 18px;padding:14px 16px;border-radius:12px;background:linear-gradient(135deg,#eef4ff,#f7fbff);border:1px solid #d6e4ff;color:#0f2540;font-size:.98rem;line-height:1.5}.qv-greet b{color:#1F6FEB}.qv-lock{background:#eef2f7 !important;color:#54657a !important;cursor:not-allowed !important;opacity:1}'; document.head.appendChild(st); })();
+  function mapPromo(p){ var m=(p||'').match(/(\d+)/); return m?('Promo '+m[1]):''; }
+  function applyProfile(j){
+    var pn=document.getElementById('prenom'); if(pn && j.prenom){ pn.value=j.prenom; pn.readOnly=true; pn.classList.add('qv-lock'); }
+    var nn=document.getElementById('nom'); if(nn && j.nom){ nn.value=j.nom; nn.readOnly=true; nn.classList.add('qv-lock'); }
+    var pr=document.getElementById('promo'); if(pr){ var mp=mapPromo(j.promo); if(mp && [].some.call(pr.options,function(o){return o.value===mp;})){ pr.value=mp; pr.disabled=true; pr.classList.add('qv-lock'); } }
+    var host=document.querySelector('.card')||document.querySelector('.wrap')||document.body;
+    if(host && j.prenom && !document.getElementById('qv-greet')){
+      var g=document.createElement('div'); g.className='qv-greet'; g.id='qv-greet'; var pt=mapPromo(j.promo);
+      g.innerHTML='👋 Bonjour <b>'+escapeHtml(j.prenom)+'</b>'+(pt?(' <span style="color:#5a6b7f">· '+escapeHtml(pt)+'</span>'):'')+' — vos informations sont déjà renseignées, il ne reste que votre retour à partager. Merci 🙏';
+      host.insertBefore(g, host.firstChild);
+    }
+  }
   async function verify(){
     var email=(input.value||'').trim();
     if(!isEmail(email)){ setMsg('Merci d’indiquer une adresse email valide.'); return; }
-    btn.disabled=true; var old=btn.textContent; btn.textContent='Vérification…'; msg.innerHTML='';
+    btn.disabled=true; var old=btn.innerHTML; btn.innerHTML=spin()+'Vérification…'; msg.innerHTML='';
     // Réessai automatique (jusqu'à 3 fois) : absorbe les erreurs transitoires
     // (démarrage à froid de la fonction, hoquet momentané d'Airtable).
     var j=null, okResp=false;
     for(var attempt=0; attempt<3 && !okResp; attempt++){
-      if(attempt>0){ btn.textContent='Nouvel essai…'; await new Promise(function(res){setTimeout(res,1200);}); }
+      if(attempt>0){ btn.innerHTML=spin()+'Nouvel essai…'; await new Promise(function(res){setTimeout(res,1200);}); }
       try{
         var r=await fetch('/api/check-client',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({email:email})});
         j=await r.json().catch(function(){return null;});
@@ -119,12 +134,13 @@
       window.__clientEmail=email;
       var f=document.getElementById('email');
       if(f){ f.value=email; f.readOnly=true; f.style.background='#eef2f7'; }
+      applyProfile(j);
       gate.style.display='none';
     } else if(okResp && j.found===false){
-      btn.disabled=false; btn.textContent=old;
+      btn.disabled=false; btn.innerHTML=old;
       setMsg('Cet email ne correspond à aucune inscription. Utilise l’adresse email de ton inscription, ou écris à '+link()+'.');
     } else {
-      btn.disabled=false; btn.textContent=old;
+      btn.disabled=false; btn.innerHTML=old;
       setMsg('Vérification impossible pour le moment. Réessaie dans un instant. Si le problème persiste, écris à '+link()+'.');
     }
   }
@@ -435,7 +451,7 @@ document.getElementById('form').addEventListener('submit',async e=>{
   e.preventDefault();
   if(!validate(step2)) return;
   const btn=document.getElementById('submitBtn');
-  btn.disabled=true; btn.textContent='Envoi en cours…';
+  btn.disabled=true; btn.innerHTML='<span class="ld-spin"></span>Envoi en cours…';
   try{
     if(ENDPOINT_URL && ENDPOINT_URL.indexOf('http')===0){
       await fetch(ENDPOINT_URL,{method:'POST',mode:'no-cors',headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify(collect())});

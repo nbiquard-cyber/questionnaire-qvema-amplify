@@ -52,6 +52,7 @@ module.exports = async (req, res) => {
     url.searchParams.append("fields[]", "Email");
     url.searchParams.append("fields[]", "Prénom");
     url.searchParams.append("fields[]", "Nom");
+    url.searchParams.append("fields[]", "Promo");
 
     const r = await fetch(url, { headers: { Authorization: `Bearer ${AIRTABLE_TOKEN}` } });
     if (!r.ok) {
@@ -68,6 +69,7 @@ module.exports = async (req, res) => {
         found,
         prenom: (f["Prénom"] || "").toString().trim(),
         nom: (f["Nom"] || "").toString().trim(),
+        promo: (f["Promo"] || "").toString().trim(),
       })
     );
   } catch (e) {
