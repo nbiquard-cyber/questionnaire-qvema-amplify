@@ -114,6 +114,11 @@
       window.__clientEmail=email;
       var f=document.getElementById('email');
       if(f){ f.value=email; f.readOnly=true; f.style.background='#eef2f7'; }
+      // Pré-remplit Prénom/Nom depuis l'inscription (l'étape « Faisons connaissance »
+      // est masquée) pour que le feedback soit bien nominatif dans le Sheet + Airtable.
+      var pn=document.getElementById('prenom'), nn=document.getElementById('nom');
+      if(pn && j.prenom) pn.value=j.prenom;
+      if(nn && j.nom) nn.value=j.nom;
       gate.style.display='none';
     } else if(okResp && j.found===false){
       btn.disabled=false; btn.textContent=old;

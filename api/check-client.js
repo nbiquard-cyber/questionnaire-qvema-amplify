@@ -1,6 +1,7 @@
 // QVEMA Amplify — Contrôle d'accès questionnaires
 // Vérifie qu'un email correspond à une inscription (table Clients Airtable).
-// Répond UNIQUEMENT { found: true|false } — aucune donnée personnelle n'est exposée.
+// Répond { found: true|false } et, si trouvé, le Prénom/Nom de l'inscrit (pour
+// pré-remplir le formulaire — l'utilisateur saisit sa propre adresse d'inscription).
 
 const AIRTABLE_TOKEN = process.env.AIRTABLE_TOKEN || "";
 const AIRTABLE_BASE = process.env.AIRTABLE_BASE || "appUjhN2jh25MBAAl";
@@ -49,6 +50,8 @@ module.exports = async (req, res) => {
     url.searchParams.set("filterByFormula", formula);
     url.searchParams.set("maxRecords", "1");
     url.searchParams.append("fields[]", "Email");
+    url.searchParams.append("fields[]", "Prénom");
+    url.searchParams.append("fields[]", "Nom");
 
     const r = await fetch(url, { headers: { Authorization: `Bearer ${AIRTABLE_TOKEN}` } });
     if (!r.ok) {
@@ -57,9 +60,16 @@ module.exports = async (req, res) => {
     }
     const j = await r.json();
     const found = Array.isArray(j.records) && j.records.length > 0;
+    const f = found ? j.records[0].fields || {} : {};
 
     res.statusCode = 200;
-    return res.end(JSON.stringify({ found }));
+    return res.end(
+      JSON.stringify({
+        found,
+        prenom: (f["Prénom"] || "").toString().trim(),
+        nom: (f["Nom"] || "").toString().trim(),
+      })
+    );
   } catch (e) {
     res.statusCode = 500;
     return res.end(JSON.stringify({ error: "server_error" }));
