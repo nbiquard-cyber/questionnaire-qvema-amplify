@@ -35,6 +35,23 @@
   function setMsg(h){ msg.innerHTML=h; }
   function link(){ return '<a href="mailto:'+CONTACT+'">'+CONTACT+'</a>'; }
   function isEmail(v){ return /^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(v); }
+  // La promo est déduite de l'email : on la renseigne et on la verrouille.
+  // Airtable peut stocker « 4 », « Promo 4 »… : on ne garde que le numéro.
+  function mapPromo(p){ var m=(p||'').match(/(\d+)/); return m?('Promo '+m[1]):''; }
+  function applyProfile(j){
+    var pr=document.getElementById('promo'); if(!pr) return;
+    var mp=mapPromo(j.promo);
+    // Promo absente d'Airtable ou hors de la liste : on laisse le choix ouvert
+    // plutôt que de bloquer l'inscrit sur un champ obligatoire.
+    if(!mp || ![].some.call(pr.options,function(o){ return o.value===mp; })) return;
+    pr.value=mp; pr.disabled=true; pr.classList.add('qv-lock');
+    var lab=document.querySelector('label[for="promo"]');
+    if(lab && !lab.querySelector('.qv-auto')){
+      var h=document.createElement('span'); h.className='hint qv-auto';
+      h.textContent='Renseignée automatiquement depuis ton inscription au Bootcamp.';
+      lab.appendChild(h);
+    }
+  }
   async function verify(){
     var email=(input.value||'').trim();
     if(!isEmail(email)){ setMsg('Merci d’indiquer une adresse email valide.'); return; }
@@ -54,6 +71,7 @@
       window.__clientEmail=email;
       var f=document.getElementById('email');
       if(f){ f.value=email; f.readOnly=true; f.classList.add('qv-lock'); }
+      applyProfile(j);
       gate.style.display='none';
     } else if(okResp && j.found===false){
       btn.disabled=false; btn.textContent=old;
