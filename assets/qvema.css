@@ -1,0 +1,359 @@
+/* ==========================================================================
+   Qui Veut Être Mon Associé ? Amplify — Design system questionnaires
+   Tokens repris à l'identique du site quiveutetremonassocie.com
+   (typo Slake, noir #0c0d0b, blanc #fefefe, bleu primaire #3a6fff,
+    boutons pill 100px, cartes 10/20px).
+   ========================================================================== */
+
+/* --- Typographie de marque ------------------------------------------------ */
+@font-face{font-family:Slake;src:url(/assets/fonts/Slake-Light.woff2) format("woff2");font-weight:300;font-style:normal;font-display:swap}
+@font-face{font-family:Slake;src:url(/assets/fonts/Slake-Regular.woff2) format("woff2");font-weight:400;font-style:normal;font-display:swap}
+@font-face{font-family:Slake;src:url(/assets/fonts/Slake-Bold.woff2) format("woff2");font-weight:700;font-style:normal;font-display:swap}
+@font-face{font-family:Slake;src:url(/assets/fonts/Slake-Black.woff2) format("woff2");font-weight:900;font-style:normal;font-display:swap}
+
+:root{
+  /* Couleurs de marque */
+  --noir:#0c0d0b;
+  --noir-profond:#000;
+  --blanc:#fefefe;
+  --primary:#3a6fff;
+  --primary-deep:#264db6;
+  --primary-light:#eef4f8;
+  --gris:#e9e9e9;
+  --gris-clair:#f8f8f8;
+  --gris-texte:#5f6360;
+  --gris-doux:#8b8f8c;
+  --blanc-70:rgba(254,254,254,.7);
+  --blanc-45:rgba(254,254,254,.45);
+  --blanc-15:rgba(254,254,254,.15);
+  --blanc-10:rgba(254,254,254,.1);
+  --erreur:#d0342c;
+  /* Formes */
+  --radius-card:20px;
+  --radius-field:10px;
+  --radius-btn:100px;
+  /* Typo */
+  --font:Slake,"Helvetica Neue",Arial,sans-serif;
+  --ls-titre:-.01em;
+  --ls-body:.01em;
+}
+
+*{box-sizing:border-box;margin:0;padding:0}
+
+html{-webkit-text-size-adjust:100%}
+
+body{
+  font-family:var(--font);
+  font-weight:300;
+  letter-spacing:var(--ls-body);
+  background-color:var(--noir);
+  /* Halo bleu façon sections « nebula » du site */
+  background-image:
+    radial-gradient(900px 520px at 50% -180px,rgba(58,111,255,.28),transparent 68%),
+    radial-gradient(600px 400px at 90% 12%,rgba(38,77,182,.16),transparent 70%);
+  background-repeat:no-repeat;
+  background-attachment:fixed;
+  min-height:100vh;
+  color:var(--blanc);
+  padding:40px 20px 56px;
+  line-height:1.5;
+  -webkit-font-smoothing:antialiased;
+  /* Slake embarque des ligatures décoratives actives par défaut : elles
+     transforment « Comment » en « @mment » et « c'est » en « c'eſt ».
+     Tolérable sur les titres courts du site, illisible sur de la prose. */
+  font-variant-ligatures:none;
+  font-feature-settings:"liga" 0,"clig" 0,"dlig" 0,"hlig" 0,"calt" 0;
+}
+
+.wrap{max-width:720px;margin:0 auto}
+
+/* --- En-tête de marque ---------------------------------------------------- */
+.brand{text-align:center;margin-bottom:28px}
+
+.brand-logo{display:inline-block;margin-bottom:22px;line-height:0;transition:opacity .25s}
+.brand-logo:hover{opacity:.75}
+.brand-logo img{width:190px;height:auto;display:block}
+
+.brand .kicker{
+  color:var(--blanc-70);
+  font-weight:400;
+  letter-spacing:.16em;
+  font-size:.7rem;
+  text-transform:uppercase;
+}
+.brand .kicker b{color:var(--primary);font-weight:400}
+
+.brand h1{
+  color:var(--blanc);
+  font-size:clamp(1.7rem,5.2vw,2.4rem);
+  line-height:1.1;
+  letter-spacing:var(--ls-titre);
+  margin-top:12px;
+  font-weight:400;
+}
+
+.brand p{
+  color:var(--blanc-70);
+  font-size:1rem;
+  font-weight:300;
+  line-height:1.45;
+  margin:14px auto 0;
+  max-width:520px;
+}
+
+/* --- Carte ---------------------------------------------------------------- */
+.card{
+  background:var(--blanc);
+  border-radius:var(--radius-card);
+  padding:36px 32px;
+  color:var(--noir);
+  box-shadow:0 32px 80px rgba(0,0,0,.55);
+}
+
+/* --- Progression ---------------------------------------------------------- */
+.progress{display:flex;align-items:center;gap:14px;margin-bottom:28px}
+.pbar{flex:1;height:4px;background:var(--gris);border-radius:99px;overflow:hidden}
+.pbar span{
+  display:block;height:100%;width:50%;
+  background:linear-gradient(90deg,var(--primary),var(--primary-deep));
+  border-radius:99px;transition:width .4s cubic-bezier(.25,.46,.45,.94);
+}
+.pstep{font-size:.75rem;color:var(--gris-texte);font-weight:400;letter-spacing:.04em;white-space:nowrap}
+
+/* --- Titres d'étape ------------------------------------------------------- */
+.step-head{margin-bottom:26px}
+.step-head h2{
+  font-size:1.45rem;color:var(--noir);font-weight:400;
+  line-height:1.2;letter-spacing:var(--ls-titre);
+}
+.step-head .sub{color:var(--gris-texte);font-size:.94rem;font-weight:300;margin-top:8px;line-height:1.45}
+
+.section-label{
+  font-size:.68rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;
+  color:var(--primary);margin:34px 0 14px;
+}
+.section-label:first-child{margin-top:0}
+
+/* --- Champs --------------------------------------------------------------- */
+.field{margin-bottom:24px}
+
+label.q{
+  display:block;font-weight:400;font-size:1rem;margin-bottom:10px;
+  color:var(--noir);line-height:1.35;letter-spacing:0;
+}
+label.q .req{color:var(--primary)}
+
+.hint{
+  font-size:.83rem;color:var(--gris-doux);font-weight:300;
+  margin-top:4px;display:block;line-height:1.4;letter-spacing:0;
+}
+
+input[type=text],input[type=email],input[type=date],input[type=url],input[type=tel],
+input[type=number],select,textarea{
+  width:100%;
+  padding:15px 18px;
+  min-height:54px;
+  border:1px solid var(--gris);
+  border-radius:var(--radius-field);
+  font-size:16px;
+  font-family:inherit;
+  font-weight:400;
+  letter-spacing:var(--ls-body);
+  color:var(--noir);
+  background:#fff;
+  transition:border-color .25s,box-shadow .25s;
+}
+input::placeholder,textarea::placeholder{color:#b4b8b5;font-weight:300}
+
+input:focus,select:focus,textarea:focus{
+  outline:none;
+  border-color:var(--primary);
+  box-shadow:0 0 0 3px rgba(58,111,255,.15);
+}
+
+textarea{resize:vertical;min-height:110px;line-height:1.5}
+
+select{
+  appearance:none;
+  background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='%230c0d0b' stroke-width='2'><path d='M6 9l6 6 6-6'/></svg>");
+  background-repeat:no-repeat;
+  background-position:right 18px center;
+  padding-right:44px;
+  cursor:pointer;
+}
+
+/* --- Échelle de notation (1 → n) ------------------------------------------ */
+.scale{display:flex;gap:8px;flex-wrap:wrap}
+.scale label{flex:1;min-width:52px;text-align:center;cursor:pointer}
+.scale input{position:absolute;opacity:0;pointer-events:none}
+.scale .dot{
+  display:flex;align-items:center;justify-content:center;height:52px;
+  border:1px solid var(--gris);border-radius:var(--radius-field);
+  font-weight:400;font-size:1rem;color:var(--gris-texte);
+  transition:background-color .18s,border-color .18s,color .18s;
+}
+.scale label:hover .dot{border-color:var(--noir)}
+.scale input:checked + .dot{background:var(--primary);border-color:var(--primary);color:var(--blanc)}
+.scale input:focus-visible + .dot{box-shadow:0 0 0 3px rgba(58,111,255,.25)}
+.scale-legend{
+  display:flex;justify-content:space-between;font-size:.76rem;
+  color:var(--gris-doux);font-weight:300;margin-top:8px;letter-spacing:0;
+}
+
+/* --- Échelle NPS (0 → 10) ------------------------------------------------- */
+.nps{display:flex;gap:6px;flex-wrap:wrap}
+.nps label{cursor:pointer}
+.nps input{position:absolute;opacity:0;pointer-events:none}
+.nps .n{
+  display:flex;align-items:center;justify-content:center;width:42px;height:46px;
+  border:1px solid var(--gris);border-radius:var(--radius-field);
+  font-size:.95rem;font-weight:400;color:var(--gris-texte);
+  transition:background-color .18s,border-color .18s,color .18s;
+}
+.nps label:hover .n{border-color:var(--noir)}
+.nps input:checked + .n{background:var(--primary);border-color:var(--primary);color:var(--blanc)}
+.nps input:focus-visible + .n{box-shadow:0 0 0 3px rgba(58,111,255,.25)}
+
+/* --- Choix (radio / checkbox) --------------------------------------------- */
+.opts{display:flex;flex-direction:column;gap:10px}
+.opt{
+  display:flex;align-items:flex-start;gap:13px;
+  padding:15px 18px;
+  border:1px solid var(--gris);border-radius:var(--radius-field);
+  cursor:pointer;
+  transition:background-color .18s,border-color .18s;
+}
+.opt:hover{border-color:var(--noir)}
+.opt input{margin-top:1px;width:18px;height:18px;accent-color:var(--primary);flex-shrink:0}
+.opt.sel{border-color:var(--primary);background:rgba(58,111,255,.05)}
+.opt span{font-size:.97rem;font-weight:300;line-height:1.45;letter-spacing:0}
+
+/* --- Notation par ligne --------------------------------------------------- */
+.rating-row{
+  display:flex;align-items:center;justify-content:space-between;gap:14px;
+  padding:14px 0;border-bottom:1px solid var(--gris);
+}
+.rating-row:last-child{border-bottom:none}
+.rating-row .name{font-size:.95rem;font-weight:300;flex:1;line-height:1.4;letter-spacing:0}
+.mini{display:flex;gap:6px}
+.mini label{cursor:pointer}
+.mini input{position:absolute;opacity:0;pointer-events:none}
+.mini .d{
+  display:flex;align-items:center;justify-content:center;width:38px;height:38px;
+  border:1px solid var(--gris);border-radius:8px;
+  font-size:.88rem;font-weight:400;color:var(--gris-texte);
+  transition:background-color .18s,border-color .18s,color .18s;
+}
+.mini label:hover .d{border-color:var(--noir)}
+.mini input:checked + .d{background:var(--primary);border-color:var(--primary);color:var(--blanc)}
+.mini input:focus-visible + .d{box-shadow:0 0 0 3px rgba(58,111,255,.25)}
+
+/* --- Erreurs -------------------------------------------------------------- */
+.err{color:var(--erreur);font-size:.83rem;font-weight:300;margin-top:8px;display:none;letter-spacing:0}
+.field.invalid input,.field.invalid select,.field.invalid textarea{border-color:var(--erreur)}
+.field.invalid .err{display:block}
+
+/* --- Boutons -------------------------------------------------------------- */
+.nav{display:flex;gap:12px;margin-top:34px}
+
+button{
+  font-family:inherit;font-size:.95rem;font-weight:400;letter-spacing:.2px;
+  border:1px solid transparent;border-radius:var(--radius-btn);
+  min-height:54px;padding:15px 28px;cursor:pointer;
+  transition:background-color .25s,border-color .25s,color .25s,opacity .25s;
+}
+
+.btn-primary{background:var(--primary);color:var(--blanc);flex:1}
+.btn-primary:hover{background:var(--primary-deep)}
+
+.btn-ghost{background:#fff0;color:var(--noir);border-color:rgba(12,13,11,.18)}
+.btn-ghost:hover{border-color:var(--noir);background:var(--gris-clair)}
+
+button[disabled]{opacity:.5;cursor:not-allowed}
+button:focus-visible{outline:2px solid var(--primary);outline-offset:3px}
+
+/* --- Écran de remerciement ------------------------------------------------ */
+.thanks{text-align:center;padding:24px 6px}
+.thanks .check{
+  width:78px;height:78px;border-radius:50%;
+  background:var(--primary);
+  display:flex;align-items:center;justify-content:center;margin:0 auto 24px;
+}
+.thanks .check svg{width:38px;height:38px;stroke:var(--blanc);stroke-width:2.5;fill:none}
+.thanks h2{color:var(--noir);font-size:1.6rem;font-weight:400;letter-spacing:var(--ls-titre);line-height:1.2}
+.thanks p{color:var(--gris-texte);margin-top:14px;font-size:1rem;font-weight:300;line-height:1.5}
+
+/* --- Pied de page --------------------------------------------------------- */
+.foot{
+  text-align:center;color:var(--blanc-45);font-size:.78rem;font-weight:300;
+  margin-top:28px;letter-spacing:.02em;
+}
+.foot a{color:var(--blanc-70);text-decoration:none}
+.foot a:hover{color:var(--blanc);text-decoration:underline;text-underline-offset:3px}
+
+/* --- Contrôle d'accès (gate e-mail) --------------------------------------- */
+.gate{
+  position:fixed;inset:0;z-index:99999;
+  background-color:var(--noir);
+  background-image:
+    radial-gradient(900px 520px at 50% -180px,rgba(58,111,255,.28),transparent 68%),
+    radial-gradient(600px 400px at 90% 12%,rgba(38,77,182,.16),transparent 70%);
+  background-repeat:no-repeat;
+  display:flex;align-items:center;justify-content:center;
+  padding:24px;overflow-y:auto;
+}
+.gate-inner{width:100%;max-width:440px;text-align:center}
+.gate-inner .brand-logo{margin-bottom:26px}
+.gate-inner .brand-logo img{width:170px}
+.gate-card{
+  background:var(--blanc);border-radius:var(--radius-card);
+  padding:34px 30px;box-shadow:0 32px 80px rgba(0,0,0,.55);
+  text-align:left;color:var(--noir);
+}
+.gate-card h2{
+  font-size:1.3rem;font-weight:400;color:var(--noir);
+  letter-spacing:var(--ls-titre);line-height:1.2;margin-bottom:10px;
+}
+.gate-card p{font-size:.94rem;font-weight:300;color:var(--gris-texte);line-height:1.5;margin-bottom:22px}
+.gate-card input{margin-bottom:14px}
+.gate-card button{width:100%}
+.gate-msg{min-height:22px;margin-top:14px;font-size:.88rem;font-weight:300;line-height:1.5;color:var(--erreur)}
+.gate-msg a{color:var(--primary);font-weight:400;text-decoration:none;border-bottom:1px solid rgba(58,111,255,.3)}
+
+/* --- Injections JS : message d'accueil, champs verrouillés, spinner ------- */
+.qv-greet{
+  margin:0 0 24px;padding:16px 18px;border-radius:var(--radius-field);
+  background:rgba(58,111,255,.05);border:1px solid rgba(58,111,255,.18);
+  color:var(--noir);font-size:.95rem;font-weight:300;line-height:1.5;letter-spacing:0;
+}
+.qv-greet b{color:var(--primary);font-weight:400}
+.qv-greet .qv-promo{color:var(--gris-texte)}
+
+.qv-lock{background:var(--gris-clair) !important;color:var(--gris-texte) !important;cursor:not-allowed !important;opacity:1}
+
+.ld-spin{
+  display:inline-block;width:14px;height:14px;margin-right:9px;vertical-align:-2px;
+  border:2px solid rgba(254,254,254,.4);border-top-color:var(--blanc);
+  border-radius:50%;animation:ldspin .7s linear infinite;
+}
+@keyframes ldspin{to{transform:rotate(360deg)}}
+
+/* --- Utilitaires ---------------------------------------------------------- */
+.hidden{display:none}
+
+/* --- Mobile --------------------------------------------------------------- */
+@media (max-width:600px){
+  body{padding:28px 14px 40px;background-attachment:scroll}
+  .brand-logo img{width:150px}
+  .brand{margin-bottom:22px}
+  .card{padding:26px 20px;border-radius:16px}
+  .gate-card{padding:26px 20px;border-radius:16px}
+  .nav{flex-direction:column-reverse}
+  .btn-ghost{width:100%}
+  .scale{gap:6px}
+  .scale label{min-width:44px}
+  .scale .dot{height:48px}
+  .nps .n{width:38px;height:42px}
+  .rating-row{flex-direction:column;align-items:flex-start;gap:10px}
+  .mini .d{width:36px;height:36px}
+}
