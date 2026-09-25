@@ -3,74 +3,28 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>QVEMA Amplify — Votre avis sur le live avec Marc Simoncini</title>
-<style>
-  :root{
-    --bleu:#1F3A5F;--bleu-clair:#2E5685;--dore:#C8A24B;--dore-clair:#E0C480;
-    --gris:#5B6470;--gris-clair:#8A93A0;--bg:#F4F1EA;--carte:#FFFFFF;--bordure:#E3E6EB;--ok:#2E7D5B;
-  }
-  *{box-sizing:border-box;margin:0;padding:0}
-  body{font-family:'Inter','Segoe UI',-apple-system,BlinkMacSystemFont,sans-serif;background:linear-gradient(160deg,#1F3A5F 0%,#14253c 100%);min-height:100vh;color:var(--bleu);padding:24px 16px;line-height:1.5}
-  .wrap{max-width:680px;margin:0 auto}
-  .brand{text-align:center;margin-bottom:18px}
-  .brand .kicker{color:var(--dore);font-weight:700;letter-spacing:.18em;font-size:.72rem;text-transform:uppercase}
-  .brand h1{color:#fff;font-size:1.5rem;margin-top:6px;font-weight:800}
-  .brand p{color:#cdd6e3;font-size:.92rem;margin-top:6px}
-  .card{background:var(--carte);border-radius:18px;padding:30px 26px;box-shadow:0 18px 50px rgba(0,0,0,.28)}
-  .step-head{margin-bottom:20px}
-  .step-head h2{font-size:1.22rem;color:var(--bleu)}
-  .step-head .sub{color:var(--gris);font-size:.9rem;margin-top:6px}
-  .field{margin-bottom:18px}
-  label.q{display:block;font-weight:650;font-size:.98rem;margin-bottom:8px;color:var(--bleu)}
-  label.q .req{color:#c0392b}
-  .hint{font-size:.8rem;color:var(--gris-clair);font-weight:400;margin-top:2px;display:block}
-  input[type=text],input[type=email],select,textarea{width:100%;padding:12px 14px;border:1.5px solid var(--bordure);border-radius:11px;font-size:1rem;font-family:inherit;color:var(--bleu);background:#fff;transition:border .2s,box-shadow .2s}
-  input:focus,select:focus,textarea:focus{outline:none;border-color:var(--bleu-clair);box-shadow:0 0 0 3px rgba(46,86,133,.13)}
-  textarea{resize:vertical;min-height:78px}
-  select{appearance:none;background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='%235B6470' stroke-width='2.5'><path d='M6 9l6 6 6-6'/></svg>");background-repeat:no-repeat;background-position:right 14px center;padding-right:38px}
-  .scale{display:flex;gap:8px;flex-wrap:wrap}
-  .scale label{flex:1;min-width:54px;text-align:center;cursor:pointer}
-  .scale input{position:absolute;opacity:0;pointer-events:none}
-  .scale .dot{display:flex;align-items:center;justify-content:center;height:46px;border:1.5px solid var(--bordure);border-radius:11px;font-weight:700;color:var(--gris);transition:all .15s}
-  .scale input:checked + .dot{background:var(--bleu);border-color:var(--bleu);color:#fff;transform:translateY(-2px)}
-  .scale-legend{display:flex;justify-content:space-between;font-size:.74rem;color:var(--gris-clair);margin-top:6px}
-  .opts{display:flex;flex-direction:column;gap:9px}
-  .opt{display:flex;align-items:flex-start;gap:11px;padding:11px 14px;border:1.5px solid var(--bordure);border-radius:11px;cursor:pointer;transition:all .15s}
-  .opt:hover{border-color:var(--dore)}
-  .opt input{margin-top:2px;width:18px;height:18px;accent-color:var(--bleu);flex-shrink:0}
-  .opt.sel{border-color:var(--bleu);background:#F5F8FC}
-  .opt span{font-size:.95rem}
-  .err{color:#c0392b;font-size:.82rem;margin-top:6px;display:none}
-  .field.invalid input,.field.invalid select,.field.invalid textarea{border-color:#c0392b}
-  .field.invalid .err{display:block}
-  .nav{display:flex;gap:12px;margin-top:26px}
-  button{font-family:inherit;font-size:1rem;font-weight:700;border:none;border-radius:12px;padding:14px 22px;cursor:pointer;transition:transform .12s,box-shadow .2s,opacity .2s}
-  button:active{transform:translateY(1px)}
-  .btn-primary{background:linear-gradient(135deg,var(--dore),var(--dore-clair));color:#3a2e10;flex:1;box-shadow:0 8px 22px rgba(200,162,75,.4)}
-  .btn-primary:hover{box-shadow:0 10px 28px rgba(200,162,75,.55)}
-  button[disabled]{opacity:.6;cursor:not-allowed}
-  .hidden{display:none}
-  .foot{text-align:center;color:#9fb0c6;font-size:.78rem;margin-top:20px}
-  .thanks{text-align:center;padding:18px 6px}
-  .thanks .check{width:74px;height:74px;border-radius:50%;background:linear-gradient(135deg,var(--ok),#3da576);display:flex;align-items:center;justify-content:center;margin:0 auto 18px}
-  .thanks .check svg{width:38px;height:38px;stroke:#fff;stroke-width:3;fill:none}
-  .thanks h2{color:var(--bleu);font-size:1.5rem}
-  .thanks p{color:var(--gris);margin-top:10px;font-size:.98rem}
-  .section-label{font-size:.72rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--dore);margin:26px 0 10px}
-  .section-label:first-child{margin-top:0}
-</style>
+<title>Qui Veut Être Mon Associé ? Amplify — Votre avis sur le live avec Marc Simoncini</title>
+<meta name="theme-color" content="#0c0d0b" />
+<meta name="robots" content="noindex, nofollow" />
+<link rel="icon" href="/assets/favicon.svg" type="image/svg+xml" />
+<link rel="preload" href="/assets/fonts/Slake-Regular.woff2" as="font" type="font/woff2" crossorigin />
+<link rel="preload" href="/assets/fonts/Slake-Light.woff2" as="font" type="font/woff2" crossorigin />
+<link rel="stylesheet" href="/assets/qvema.css" />
 </head>
 <body>
 <!-- Contrôle d'accès : email d'inscription (table Clients Airtable) -->
-<div id="clientGate" style="position:fixed;inset:0;z-index:99999;background:#0f2540;display:flex;align-items:center;justify-content:center;padding:20px;font-family:inherit">
-  <div style="background:#fff;border-radius:16px;max-width:430px;width:100%;padding:30px 26px;box-shadow:0 20px 60px rgba(0,0,0,.35);text-align:center">
-    <h2 style="margin:0 0 8px;font-size:1.25rem;color:#0f2540">Accès au questionnaire</h2>
-    <p style="margin:0 0 18px;font-size:.95rem;color:#5a6b7f;line-height:1.5">Entre l'adresse email utilisée lors de ton inscription au bootcamp pour continuer.</p>
-    <input id="clientGateEmail" type="email" autocomplete="email" placeholder="prenom@email.com"
-      style="width:100%;padding:12px 14px;border:1.5px solid #cdd7e2;border-radius:11px;font-size:1rem;margin-bottom:12px;color:#0f2540;box-sizing:border-box" />
-    <button id="clientGateBtn" type="button"
-      style="width:100%;padding:12px;border:none;border-radius:11px;background:#1F6FEB;color:#fff;font-size:1rem;font-weight:700;cursor:pointer">Vérifier et continuer</button>
-    <div id="clientGateMsg" style="min-height:20px;margin-top:12px;font-size:.9rem;line-height:1.5"></div>
+<div id="clientGate" class="gate">
+  <div class="gate-inner">
+    <a class="brand-logo" href="https://quiveutetremonassocie.com" target="_blank" rel="noopener">
+      <img src="/assets/logo-qvema-amplify.svg" alt="Qui Veut Être Mon Associé ? Amplify" width="170" height="97" />
+    </a>
+    <div class="gate-card">
+      <h2>Accès au questionnaire</h2>
+      <p>Entre l'adresse email utilisée lors de ton inscription au bootcamp pour continuer.</p>
+      <input id="clientGateEmail" type="email" autocomplete="email" placeholder="prenom@email.com" />
+      <button id="clientGateBtn" type="button" class="btn-primary">Vérifier et continuer</button>
+      <div id="clientGateMsg" class="gate-msg"></div>
+    </div>
   </div>
 </div>
 <script>
@@ -78,12 +32,12 @@
   var gate=document.getElementById('clientGate'),input=document.getElementById('clientGateEmail'),
       btn=document.getElementById('clientGateBtn'),msg=document.getElementById('clientGateMsg'),
       CONTACT='contact@qvemaamplify.com';
-  function setMsg(h){ msg.innerHTML=h; msg.style.color='#c0392b'; }
-  function link(){ return '<a href="mailto:'+CONTACT+'" style="color:#1F6FEB;font-weight:600">'+CONTACT+'</a>'; }
+  function setMsg(h){ msg.innerHTML=h; }
+  function link(){ return '<a href="mailto:'+CONTACT+'">'+CONTACT+'</a>'; }
   function isEmail(v){ return /^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(v); }
   function escapeHtml(s){ var d=document.createElement('div'); d.textContent=(s==null?'':s); return d.innerHTML; }
   function spin(){ return '<span class="ld-spin"></span>'; }
-  (function(){ if(document.getElementById('ld-spin-css')) return; var st=document.createElement('style'); st.id='ld-spin-css'; st.textContent='.ld-spin{display:inline-block;width:14px;height:14px;margin-right:8px;vertical-align:-2px;border:2px solid rgba(255,255,255,.45);border-top-color:#fff;border-radius:50%;animation:ldspin .7s linear infinite}@keyframes ldspin{to{transform:rotate(360deg)}}.qv-greet{margin:0 0 18px;padding:14px 16px;border-radius:12px;background:linear-gradient(135deg,#eef4ff,#f7fbff);border:1px solid #d6e4ff;color:#0f2540;font-size:.98rem;line-height:1.5}.qv-greet b{color:#1F6FEB}.qv-lock{background:#eef2f7 !important;color:#54657a !important;cursor:not-allowed !important;opacity:1}'; document.head.appendChild(st); })();
+  (function(){ if(document.getElementById('ld-spin-css')) return; var st=document.createElement('style'); st.id='ld-spin-css'; st.textContent=''; document.head.appendChild(st); })();
   function mapPromo(p){ var m=(p||'').match(/(\d+)/); return m?('Promo '+m[1]):''; }
   function applyProfile(j){
     var pn=document.getElementById('prenom'); if(pn && j.prenom){ pn.value=j.prenom; pn.readOnly=true; pn.classList.add('qv-lock'); }
@@ -92,7 +46,7 @@
     var host=document.querySelector('.card')||document.querySelector('.wrap')||document.body;
     if(host && j.prenom && !document.getElementById('qv-greet')){
       var g=document.createElement('div'); g.className='qv-greet'; g.id='qv-greet'; var pt=mapPromo(j.promo);
-      g.innerHTML='👋 Bonjour <b>'+escapeHtml(j.prenom)+'</b>'+(pt?(' <span style="color:#5a6b7f">· '+escapeHtml(pt)+'</span>'):'')+' — vos informations sont déjà renseignées, il ne reste que votre retour à partager. Merci 🙏';
+      g.innerHTML='👋 Bonjour <b>'+escapeHtml(j.prenom)+'</b>'+(pt?(' <span class="qv-promo">· '+escapeHtml(pt)+'</span>'):'')+' — vos informations sont déjà renseignées, il ne reste que votre retour à partager. Merci 🙏';
       host.insertBefore(g, host.firstChild);
     }
   }
@@ -114,7 +68,7 @@
     if(okResp && j.found===true){
       window.__clientEmail=email;
       var f=document.getElementById('email');
-      if(f){ f.value=email; f.readOnly=true; f.style.background='#eef2f7'; }
+      if(f){ f.value=email; f.readOnly=true; f.classList.add('qv-lock'); }
       applyProfile(j);
       gate.style.display='none';
     } else if(okResp && j.found===false){
@@ -131,11 +85,14 @@
 })();
 </script>
 <div class="wrap">
-  <div class="brand">
-    <div class="kicker">QVEMA Amplify · Live</div>
+  <header class="brand">
+    <a class="brand-logo" href="https://quiveutetremonassocie.com" target="_blank" rel="noopener">
+      <img src="/assets/logo-qvema-amplify.svg" alt="Qui Veut Être Mon Associé ? Amplify" width="190" height="108" />
+    </a>
+    <div class="kicker">Bootcamp · Live Marc Simoncini</div>
     <h1>Votre avis sur le live avec Marc Simoncini</h1>
     <p>1 minute pour nous dire ce que vous avez pensé du live — et nous aider à améliorer les prochains.</p>
-  </div>
+  </header>
 
   <div class="card">
     <form id="form" novalidate>
@@ -214,7 +171,7 @@
     </div>
   </div>
 
-  <div class="foot">QVEMA Amplify — vos réponses restent confidentielles et servent uniquement à améliorer le programme.</div>
+  <div class="foot"><a href="https://quiveutetremonassocie.com" target="_blank" rel="noopener">Qui Veut Être Mon Associé ? Amplify</a> — vos réponses restent confidentielles et servent uniquement à améliorer le programme.</div>
 </div>
 
 <script>
