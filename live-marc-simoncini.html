@@ -221,6 +221,10 @@ function collect(){
   const g=name=>{const el=document.querySelector('[name="'+name+'"]:checked');return el?el.value:'';};
   return {
     "Horodatage": new Date().toISOString(),
+    // Onglet de destination côté Apps Script : il range chaque soumission dans
+    // « Module » + cette valeur. Sans la clé, tout atterrissait dans le premier
+    // onglet, avec un mapping de colonnes décalé.
+    "Module": "Live Marc Simoncini",
     "Événement": EVENEMENT,
     "Promo": PROMO,
     "Email": document.getElementById('email').value.trim(),
