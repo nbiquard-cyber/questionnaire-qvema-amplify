@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Qui Veut Être Mon Associé ? Amplify — Raconte-nous ton parcours</title>
+<meta name="theme-color" content="#0c0d0b" />
+<meta name="robots" content="noindex, nofollow" />
+<link rel="icon" href="/assets/favicon.svg" type="image/svg+xml" />
+<link rel="preload" href="/assets/fonts/Slake-Regular.woff2" as="font" type="font/woff2" crossorigin />
+<link rel="preload" href="/assets/fonts/Slake-Light.woff2" as="font" type="font/woff2" crossorigin />
+<link rel="stylesheet" href="/assets/qvema.css" />
+<style>
+  .qv-greet.big{font-size:1rem;line-height:1.55;padding:20px 22px}
+  .qv-greet.big .hello{display:block;font-size:1.25rem;font-weight:400;margin-bottom:8px;color:var(--noir)}
+  textarea{min-height:130px}
+</style>
+</head>
+<body>
+<!-- Contrôle d'accès : email d'inscription (table Clients Airtable) -->
+<div id="clientGate" class="gate">
+  <div class="gate-inner">
+    <a class="brand-logo" href="https://quiveutetremonassocie.com" target="_blank" rel="noopener">
+      <img src="/assets/logo-qvema-amplify.svg" alt="Qui Veut Être Mon Associé ? Amplify" width="170" height="97" />
+    </a>
+    <div class="gate-card">
+      <h2>Accès au questionnaire</h2>
+      <p>Entre l'adresse email utilisée lors de ton inscription au bootcamp pour continuer.</p>
+      <input id="clientGateEmail" type="email" autocomplete="email" placeholder="prenom@email.com" />
+      <button id="clientGateBtn" type="button" class="btn-primary">Vérifier et continuer</button>
+      <div id="clientGateMsg" class="gate-msg"></div>
+    </div>
+  </div>
+</div>
+
+<div class="wrap">
+  <header class="brand">
+    <a class="brand-logo" href="https://quiveutetremonassocie.com" target="_blank" rel="noopener">
+      <img src="/assets/logo-qvema-amplify.svg" alt="Qui Veut Être Mon Associé ? Amplify" width="190" height="108" />
+    </a>
+    <div class="kicker">Bootcamp · Ton témoignage</div>
+    <h1>Raconte-nous ton parcours</h1>
+    <p>Avant, pendant et après le Bootcamp. 5 à 10 minutes, avec tes mots.</p>
+  </header>
+
+  <div class="card">
+    <form id="form" novalidate>
+      <div class="progress" id="progress"><div class="pbar"><span id="pbar"></span></div><div class="pstep" id="pstep">Étape 1 / 4</div></div>
+
+      <div id="greet" class="qv-greet big hidden"></div>
+
+      <!-- Identité : masquée si Airtable renvoie prénom + nom -->
+      <div id="identity">
+        <div class="section-label">Tu es…</div>
+        <div class="field" data-required>
+          <label class="q" for="email">Ton email <span class="req">*</span></label>
+          <input type="email" id="email" name="email" autocomplete="email" placeholder="prenom@email.com" />
+          <div class="err">Merci d’indiquer un email valide.</div>
+        </div>
+        <div class="field" data-required>
+          <label class="q" for="prenom">Prénom <span class="req">*</span></label>
+          <input type="text" id="prenom" name="prenom" autocomplete="given-name" />
+          <div class="err">Merci d’indiquer ton prénom.</div>
+        </div>
+        <div class="field" data-required>
+          <label class="q" for="nom">Nom <span class="req">*</span></label>
+          <input type="text" id="nom" name="nom" autocomplete="family-name" />
+          <div class="err">Merci d’indiquer ton nom.</div>
+        </div>
+      </div>
+
+      <!-- ÉTAPE 1 : AVANT -->
+      <div class="step" id="step1">
+        <div class="step-head">
+          <h2>Avant le Bootcamp</h2>
+          <div class="sub">D’où tu partais, et pourquoi tu t’es lancé·e.</div>
+        </div>
+        <div class="field" data-required>
+          <label class="q" for="q1">1. Concrètement, qu’est-ce que tu faisais avant le Bootcamp et sur quoi bloquais-tu le plus ? <span class="req">*</span></label>
+          <textarea id="q1" name="q1" placeholder="Ta réponse…"></textarea>
+          <div class="err">Merci de répondre à cette question.</div>
+        </div>
+        <div class="field" data-required>
+          <label class="q" for="q2">2. Pourquoi as-tu décidé de rejoindre le Bootcamp ? Qu’est-ce que tu en attendais ? <span class="req">*</span></label>
+          <textarea id="q2" name="q2" placeholder="Ta réponse…"></textarea>
+          <div class="err">Merci de répondre à cette question.</div>
+        </div>
+        <div class="field">
+          <label class="q" for="q3">3. Qu’est-ce qui aurait pu te retenir de t’inscrire ?
+            <span class="hint">Doute, budget, temps…</span>
+          </label>
+          <textarea id="q3" name="q3" placeholder="Ta réponse… (facultatif)"></textarea>
+        </div>
+        <div class="nav">
+          <button type="button" class="btn-primary" data-next>Continuer →</button>
+        </div>
+      </div>
+
+      <!-- ÉTAPE 2 : PENDANT -->
+      <div class="step hidden" id="step2">
+        <div class="step-head">
+          <h2>Pendant le Bootcamp</h2>
+          <div class="sub">Ce que tu as vécu, ce qui t’a servi.</div>
+        </div>
+        <div class="field" data-required>
+          <label class="q" for="q4">4. Comment s’est passé le Bootcamp pour toi ? <span class="req">*</span></label>
+          <textarea id="q4" name="q4" placeholder="Ta réponse…"></textarea>
+          <div class="err">Merci de répondre à cette question.</div>
+        </div>
+        <div class="field" data-required>
+          <label class="q" for="q5">5. Qu’est-ce qui t’a été le plus utile ? <span class="req">*</span>
+            <span class="hint">Un module, un live, un jury, le réseau, l’IA, etc.</span>
+          </label>
+          <textarea id="q5" name="q5" placeholder="Ta réponse…"></textarea>
+          <div class="err">Merci de répondre à cette question.</div>
+        </div>
+        <div class="field">
+          <label class="q" for="q6">6. Quelles belles surprises, auxquelles tu ne t’attendais pas ?</label>
+          <textarea id="q6" name="q6" placeholder="Ta réponse… (facultatif)"></textarea>
+        </div>
+        <div class="nav">
+          <button type="button" class="btn-ghost" data-prev>← Retour</button>
+          <button type="button" class="btn-primary" data-next>Continuer →</button>
+        </div>
+      </div>
+
+      <!-- ÉTAPE 3 : APRÈS -->
+      <div class="step hidden" id="step3">
+        <div class="step-head">
+          <h2>Après le Bootcamp</h2>
+          <div class="sub">Ce qui a changé, et la suite.</div>
+        </div>
+        <div class="field" data-required>
+          <label class="q" for="q7">7. Qu’est-ce qui a changé depuis, concrètement ? <span class="req">*</span>
+            <span class="hint">Si tu peux, donne des chiffres : CA, nombre de clients, levée de fonds, partenariats, etc.</span>
+          </label>
+          <textarea id="q7" name="q7" placeholder="Ta réponse…"></textarea>
+          <div class="err">Merci de répondre à cette question.</div>
+        </div>
+        <div class="field">
+          <label class="q" for="q8">8. Quels sont tes nouveaux challenges maintenant ?</label>
+          <textarea id="q8" name="q8" placeholder="Ta réponse… (facultatif)"></textarea>
+        </div>
+        <div class="field" data-required>
+          <label class="q" for="q9">9. Un petit mot pour les prochains élèves du Bootcamp ? <span class="req">*</span></label>
+          <textarea id="q9" name="q9" placeholder="Ta réponse…"></textarea>
+          <div class="err">Merci de répondre à cette question.</div>
+        </div>
+        <div class="nav">
+          <button type="button" class="btn-ghost" data-prev>← Retour</button>
+          <button type="button" class="btn-primary" data-next>Continuer →</button>
+        </div>
+      </div>
+
+      <!-- ÉTAPE 4 : AUTORISATIONS -->
+      <div class="step hidden" id="step4">
+        <div class="step-head">
+          <h2>Autorisations</h2>
+          <div class="sub">Pour savoir comment on peut utiliser ton témoignage.</div>
+        </div>
+        <div class="field" data-required>
+          <label class="q">10. Nous autorises-tu à utiliser ton témoignage (prénom, nom, photo, citations) dans nos communications (ads, site, réseaux) ? <span class="req">*</span></label>
+          <div class="opts">
+            <label class="opt"><input type="radio" name="q10" value="Oui"><span>Oui</span></label>
+            <label class="opt"><input type="radio" name="q10" value="Non"><span>Non</span></label>
+            <label class="opt"><input type="radio" name="q10" value="Oui, mais en anonyme"><span>Oui, mais en anonyme</span></label>
+          </div>
+          <div class="err">Merci de choisir une réponse.</div>
+        </div>
+        <div class="field" data-required>
+          <label class="q">11. Acceptes-tu que l’on mentionne tes chiffres ? <span class="req">*</span></label>
+          <div class="opts">
+            <label class="opt"><input type="radio" name="q11" value="Oui"><span>Oui</span></label>
+            <label class="opt"><input type="radio" name="q11" value="Non"><span>Non</span></label>
+            <label class="opt"><input type="radio" name="q11" value="Oui, arrondis"><span>Oui, arrondis</span></label>
+          </div>
+          <div class="err">Merci de choisir une réponse.</div>
+        </div>
+        <div class="field" data-required>
+          <label class="q">12. Serais-tu partant pour témoigner en live dans un webinaire ou en vidéo ? <span class="req">*</span></label>
+          <div class="opts">
+            <label class="opt"><input type="radio" name="q12" value="Oui"><span>Oui</span></label>
+            <label class="opt"><input type="radio" name="q12" value="Peut-être"><span>Peut-être</span></label>
+            <label class="opt"><input type="radio" name="q12" value="Non"><span>Non</span></label>
+          </div>
+          <div class="err">Merci de choisir une réponse.</div>
+        </div>
+        <div class="nav">
+          <button type="button" class="btn-ghost" data-prev>← Retour</button>
+          <button type="submit" class="btn-primary" id="submitBtn">Envoyer mon témoignage</button>
+        </div>
+      </div>
+    </form>
+
+    <div class="thanks hidden" id="thanks">
+      <div class="check"><svg viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg></div>
+      <h2>Merci ! 🙌</h2>
+      <p>Ton témoignage va inspirer les prochains entrepreneurs du Bootcamp. On revient vers toi si on souhaite le mettre en avant.</p>
+    </div>
+  </div>
+
+  <div class="foot"><a href="https://quiveutetremonassocie.com" target="_blank" rel="noopener">Qui Veut Être Mon Associé ? Amplify</a> — tes réponses ne sont utilisées publiquement que selon les autorisations que tu nous donnes.</div>
+</div>
+
+<script>
+/* ====== CONFIG ====== */
+const ENDPOINT_URL = "https://script.google.com/macros/s/AKfycbzVcNiXd0lAOFtyBWOE4vOaZOj0LHJDqO8zJ_yn6B_nRVtA4mTjfHcR9itlnjL-cAyJnA/exec";
+const MODULE = "Témoignage Bootcamp"; /* onglet de destination côté Apps Script */
+const DRAFT_KEY = "qv-temoignage-draft";
+let PROFILE = { promo: "" };
+
+function escapeHtml(s){ var d=document.createElement('div'); d.textContent=(s==null?'':s); return d.innerHTML; }
+function mapPromo(p){ var m=(p||'').match(/(\d+)/); return m?('Promo '+m[1]):''; }
+
+/* ====== Contrôle d'accès ====== */
+(function(){
+  var gate=document.getElementById('clientGate'),input=document.getElementById('clientGateEmail'),
+      btn=document.getElementById('clientGateBtn'),msg=document.getElementById('clientGateMsg'),
+      CONTACT='contact@qvemaamplify.com';
+  function setMsg(h){ msg.innerHTML=h; }
+  function link(){ return '<a href="mailto:'+CONTACT+'">'+CONTACT+'</a>'; }
+  function isEmail(v){ return /^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(v); }
+  function spin(){ return '<span class="ld-spin"></span>'; }
+
+  function applyProfile(email,j){
+    PROFILE.promo=mapPromo(j.promo);
+    var f=document.getElementById('email'); f.value=email; f.readOnly=true; f.classList.add('qv-lock');
+    var pn=document.getElementById('prenom'), nn=document.getElementById('nom');
+    if(j.prenom){ pn.value=j.prenom; pn.readOnly=true; pn.classList.add('qv-lock'); }
+    if(j.nom){ nn.value=j.nom; nn.readOnly=true; nn.classList.add('qv-lock'); }
+    // Prénom + nom connus : on masque le bloc identité, l'accueil suffit.
+    if(j.prenom && j.nom){ document.getElementById('identity').classList.add('hidden'); }
+    var full=[j.prenom,j.nom].filter(Boolean).join(' ');
+    var g=document.getElementById('greet');
+    g.innerHTML='<span class="hello">Hello <b>'+(full?escapeHtml(full):'')+'</b> !</span>'+
+      'Un grand merci d’avoir fait partie de '+(PROFILE.promo?('la <b>'+escapeHtml(PROFILE.promo)+'</b> du Bootcamp'):'du Bootcamp')+
+      ', c’était un vrai plaisir de t’accompagner. On aimerait raconter ton parcours, avant, pendant et après, pour inspirer les prochains entrepreneurs. '+
+      'Prends 5 à 10 minutes et réponds avec tes mots, ça nous aiderait beaucoup.';
+    g.classList.remove('hidden');
+    restoreDraft();
+  }
+
+  async function verify(){
+    var email=(input.value||'').trim();
+    if(!isEmail(email)){ setMsg('Merci d’indiquer une adresse email valide.'); return; }
+    btn.disabled=true; var old=btn.innerHTML; btn.innerHTML=spin()+'Vérification…'; msg.innerHTML='';
+    var j=null, okResp=false;
+    for(var attempt=0; attempt<3 && !okResp; attempt++){
+      if(attempt>0){ btn.innerHTML=spin()+'Nouvel essai…'; await new Promise(function(res){setTimeout(res,1200);}); }
+      try{
+        var r=await fetch('/api/check-client',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({email:email})});
+        j=await r.json().catch(function(){return null;});
+        if(r.ok && j && (j.found===true || j.found===false)){ okResp=true; }
+      }catch(e){ /* on réessaie */ }
+    }
+    if(okResp && j.found===true){
+      applyProfile(email,j);
+      gate.style.display='none';
+    } else if(okResp && j.found===false){
+      btn.disabled=false; btn.innerHTML=old;
+      setMsg('Cet email ne correspond à aucune inscription. Utilise l’adresse email de ton inscription, ou écris à '+link()+'.');
+    } else {
+      btn.disabled=false; btn.innerHTML=old;
+      setMsg('Vérification impossible pour le moment. Réessaie dans un instant. Si le problème persiste, écris à '+link()+'.');
+    }
+  }
+  btn.addEventListener('click',verify);
+  input.addEventListener('keydown',function(e){ if(e.key==='Enter'){ e.preventDefault(); verify(); } });
+  input.focus();
+})();
+
+/* ====== Brouillon (navigateur uniquement, par email) ====== */
+function draftKey(){ return DRAFT_KEY+':'+(document.getElementById('email').value||'').toLowerCase(); }
+function saveDraft(){
+  try{
+    var d={};
+    document.querySelectorAll('#form textarea').forEach(t=>d[t.name]=t.value);
+    ['q10','q11','q12'].forEach(n=>{const el=document.querySelector('[name="'+n+'"]:checked'); if(el) d[n]=el.value;});
+    localStorage.setItem(draftKey(),JSON.stringify(d));
+  }catch(e){}
+}
+function restoreDraft(){
+  try{
+    var d=JSON.parse(localStorage.getItem(draftKey())||'null'); if(!d) return;
+    Object.keys(d).forEach(k=>{
+      const t=document.querySelector('textarea[name="'+k+'"]'); if(t){ t.value=d[k]; return; }
+      const r=document.querySelector('input[name="'+k+'"][value="'+CSS.escape(d[k])+'"]');
+      if(r){ r.checked=true; r.closest('.opt').classList.add('sel'); }
+    });
+  }catch(e){}
+}
+function clearDraft(){ try{ localStorage.removeItem(draftKey()); }catch(e){} }
+
+/* ====== Validation ====== */
+function fieldFilled(f){
+  const checks=f.querySelectorAll('input[type=radio],input[type=checkbox]');
+  if(checks.length) return [...checks].some(r=>r.checked);
+  const c=f.querySelector('input,select,textarea');
+  if(c && c.type==='email') return /^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(c.value.trim());
+  return c && c.value.trim()!=='';
+}
+function validate(scope){
+  let ok=true,firstBad=null;
+  scope.querySelectorAll('.field[data-required]').forEach(f=>{
+    const filled=fieldFilled(f);
+    f.classList.toggle('invalid',!filled);
+    if(!filled){ ok=false; if(!firstBad) firstBad=f; }
+  });
+  if(firstBad) firstBad.scrollIntoView({behavior:'smooth',block:'center'});
+  return ok;
+}
+document.querySelectorAll('.opt input').forEach(inp=>{
+  inp.addEventListener('change',()=>{
+    inp.closest('.opts').querySelectorAll('.opt').forEach(o=>o.classList.remove('sel'));
+    inp.closest('.opt').classList.toggle('sel',inp.checked);
+    saveDraft();
+  });
+});
+document.querySelectorAll('input,select,textarea').forEach(el=>{
+  el.addEventListener('input',()=>{const f=el.closest('.field');if(f)f.classList.remove('invalid'); if(el.tagName==='TEXTAREA') saveDraft();});
+  el.addEventListener('change',()=>{const f=el.closest('.field');if(f)f.classList.remove('invalid');});
+});
+
+/* ====== Navigation par étapes ====== */
+const STEPS=[...document.querySelectorAll('.step')];
+let cur=0;
+function show(i){
+  STEPS.forEach((s,k)=>s.classList.toggle('hidden',k!==i));
+  cur=i;
+  document.getElementById('pbar').style.width=((i+1)/STEPS.length*100)+'%';
+  document.getElementById('pstep').textContent='Étape '+(i+1)+' / '+STEPS.length;
+  // Accueil + identité visibles uniquement sur la première étape
+  document.getElementById('greet').style.display=i===0?'':'none';
+  document.getElementById('identity').style.display=i===0?'':'none';
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+document.querySelectorAll('[data-next]').forEach(b=>b.addEventListener('click',()=>{
+  if(cur===0){ if(!validate(document.getElementById('identity'))) return; }
+  if(!validate(STEPS[cur])) return;
+  show(cur+1);
+}));
+document.querySelectorAll('[data-prev]').forEach(b=>b.addEventListener('click',()=>show(cur-1)));
+show(0);
+
+/* ====== Collecte (clés = intitulés de colonnes) ====== */
+function collect(){
+  const v=id=>document.getElementById(id).value.trim();
+  const g=name=>{const el=document.querySelector('[name="'+name+'"]:checked');return el?el.value:'';};
+  return {
+    "Horodatage": new Date().toISOString(),
+    "Module": MODULE,
+    "Promo": PROFILE.promo,
+    "Email": v('email'),
+    "Prénom": v('prenom'),
+    "Nom": v('nom'),
+    "1. Avant : activité et blocages": v('q1'),
+    "2. Pourquoi le Bootcamp / attentes": v('q2'),
+    "3. Freins à l'inscription": v('q3'),
+    "4. Déroulé du Bootcamp": v('q4'),
+    "5. Le plus utile": v('q5'),
+    "6. Belles surprises": v('q6'),
+    "7. Ce qui a changé (chiffres)": v('q7'),
+    "8. Nouveaux challenges": v('q8'),
+    "9. Mot aux prochains élèves": v('q9'),
+    "10. Autorisation témoignage": g('q10'),
+    "11. Autorisation chiffres": g('q11'),
+    "12. Partant live / vidéo": g('q12')
+  };
+}
+
+document.getElementById('form').addEventListener('submit',async e=>{
+  e.preventDefault();
+  if(!validate(STEPS[STEPS.length-1])) return;
+  const btn=document.getElementById('submitBtn');
+  btn.disabled=true; btn.innerHTML='<span class="ld-spin"></span>Envoi en cours…';
+  try{
+    if(ENDPOINT_URL && ENDPOINT_URL.indexOf('http')===0){
+      await fetch(ENDPOINT_URL,{method:'POST',mode:'no-cors',headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify(collect())});
+    }
+    clearDraft();
+    document.getElementById('form').classList.add('hidden');
+    document.getElementById('progress').classList.add('hidden');
+    document.getElementById('thanks').classList.remove('hidden');
+    window.scrollTo({top:0,behavior:'smooth'});
+  }catch(err){
+    btn.disabled=false; btn.textContent='Envoyer mon témoignage';
+    alert("Un souci est survenu lors de l'envoi. Merci de réessayer dans un instant.");
+  }
+});
+</script>
+</body>
+</html>
