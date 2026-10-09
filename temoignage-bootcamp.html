@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Qui Veut Être Mon Associé ? Amplify — Raconte-nous ton parcours</title>
+<title>Qui Veut Être Mon Associé ? Amplify · Raconte-nous ton parcours</title>
 <meta name="theme-color" content="#0c0d0b" />
 <meta name="robots" content="noindex, nofollow" />
 <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml" />
@@ -76,12 +76,12 @@
           <div class="sub">D’où tu partais, et pourquoi tu t’es lancé·e.</div>
         </div>
         <div class="field" data-required>
-          <label class="q" for="q1">1. Concrètement, qu’est-ce que tu faisais avant le Bootcamp et sur quoi bloquais-tu le plus ? <span class="req">*</span></label>
+          <label class="q" for="q1">1. Que faisais-tu avant le Bootcamp et quel point était le plus bloquant pour faire avancer ton projet ? <span class="req">*</span></label>
           <textarea id="q1" name="q1" placeholder="Ta réponse…"></textarea>
           <div class="err">Merci de répondre à cette question.</div>
         </div>
         <div class="field" data-required>
-          <label class="q" for="q2">2. Pourquoi as-tu décidé de rejoindre le Bootcamp ? Qu’est-ce que tu en attendais ? <span class="req">*</span></label>
+          <label class="q" for="q2">2. Pourquoi as-tu décidé de rejoindre le Bootcamp ? Quelles étaient tes attentes ? <span class="req">*</span></label>
           <textarea id="q2" name="q2" placeholder="Ta réponse…"></textarea>
           <div class="err">Merci de répondre à cette question.</div>
         </div>
@@ -115,7 +115,7 @@
           <div class="err">Merci de répondre à cette question.</div>
         </div>
         <div class="field">
-          <label class="q" for="q6">6. Quelles belles surprises, auxquelles tu ne t’attendais pas ?</label>
+          <label class="q" for="q6">6. Qu’est-ce qui t’a agréablement surpris pendant le Bootcamp ? Les choses auxquelles tu ne t’attendais pas ?</label>
           <textarea id="q6" name="q6" placeholder="Ta réponse… (facultatif)"></textarea>
         </div>
         <div class="nav">
@@ -132,7 +132,7 @@
         </div>
         <div class="field" data-required>
           <label class="q" for="q7">7. Qu’est-ce qui a changé depuis, concrètement ? <span class="req">*</span>
-            <span class="hint">Si tu peux, donne des chiffres : CA, nombre de clients, levée de fonds, partenariats, etc.</span>
+            <span class="hint">Si tu as des chiffres en tête (CA, nombre de clients, levée de fonds, partenariats…), ils nous aideront à mesurer le chemin parcouru.</span>
           </label>
           <textarea id="q7" name="q7" placeholder="Ta réponse…"></textarea>
           <div class="err">Merci de répondre à cette question.</div>
@@ -194,12 +194,11 @@
 
     <div class="thanks hidden" id="thanks">
       <div class="check"><svg viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg></div>
-      <h2>Merci ! 🙌</h2>
-      <p>Ton témoignage va inspirer les prochains entrepreneurs du Bootcamp. On revient vers toi si on souhaite le mettre en avant.</p>
+      <p>Merci beaucoup ! Ton retour compte énormément pour nous afin d’améliorer le Bootcamp, promotion après promotion.</p>
     </div>
   </div>
 
-  <div class="foot"><a href="https://quiveutetremonassocie.com" target="_blank" rel="noopener">Qui Veut Être Mon Associé ? Amplify</a> — tes réponses ne sont utilisées publiquement que selon les autorisations que tu nous donnes.</div>
+  <div class="foot"><a href="https://quiveutetremonassocie.com" target="_blank" rel="noopener">Qui Veut Être Mon Associé ? Amplify</a>. Tes réponses ne sont utilisées publiquement que selon les autorisations que tu nous donnes.</div>
 </div>
 
 <script>
@@ -234,7 +233,7 @@ function mapPromo(p){ var m=(p||'').match(/(\d+)/); return m?('Promo '+m[1]):'';
     var g=document.getElementById('greet');
     g.innerHTML='<span class="hello">Hello <b>'+(full?escapeHtml(full):'')+'</b> !</span>'+
       'Un grand merci d’avoir fait partie de '+(PROFILE.promo?('la <b>'+escapeHtml(PROFILE.promo)+'</b> du Bootcamp'):'du Bootcamp')+
-      ', c’était un vrai plaisir de t’accompagner. On aimerait raconter ton parcours, avant, pendant et après, pour inspirer les prochains entrepreneurs. '+
+      '. On aimerait mieux comprendre ton parcours, avant, pendant et après. '+
       'Prends 5 à 10 minutes et réponds avec tes mots, ça nous aiderait beaucoup.';
     g.classList.remove('hidden');
     restoreDraft();
@@ -380,6 +379,10 @@ document.getElementById('form').addEventListener('submit',async e=>{
     clearDraft();
     document.getElementById('form').classList.add('hidden');
     document.getElementById('progress').classList.add('hidden');
+    // Le titre et son sous-titre n'ont plus lieu d'être une fois le
+    // questionnaire terminé : ils faisaient doublon avec le message final.
+    var bh=document.querySelector('.brand h1'); if(bh) bh.classList.add('hidden');
+    var bp=document.querySelector('.brand p');  if(bp) bp.classList.add('hidden');
     document.getElementById('thanks').classList.remove('hidden');
     window.scrollTo({top:0,behavior:'smooth'});
   }catch(err){
